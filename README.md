@@ -4,7 +4,8 @@ Interactive tournament brackets for React. Single and double elimination, multi-
 
 Built on [@xyflow/react](https://reactflow.dev/), [Zustand](https://github.com/pmndrs/zustand), and [Immer](https://immerjs.github.io/immer/).
 
-<!-- screenshot: full bracket overview -->
+<img width="791" height="469" alt="image" src="https://github.com/user-attachments/assets/5ff62796-67d5-472b-a094-37d0de870c55" />
+
 
 ---
 
