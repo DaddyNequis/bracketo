@@ -439,16 +439,14 @@
 /* ─── Photo indicator ────────────────────────────────────────────────────── */
 .bn-member-photos {
   display: flex;
-  align-self: stretch;    /* fill slot-identity height */
-  align-items: stretch;   /* stretch children to same height */
+  align-items: center;    /* vertically center with text */
   gap: 2px;
   flex-shrink: 0;
 }
 
 .bn-member-photo {
-  height: 100%;           /* fill .bn-member-photos height = slot content height */
-  aspect-ratio: 1 / 1;   /* width = height, always square */
-  width: auto;
+  height: 16px;           /* same visual size as player name text */
+  aspect-ratio: 1 / 1;
   border-radius: 3px;
   object-fit: cover;
   border: 1px solid rgba(255,255,255,0.12);
