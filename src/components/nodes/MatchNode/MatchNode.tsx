@@ -11,7 +11,7 @@ import { deriveDisplayStatus, formatScheduleTime } from '../../../utils/matchSch
 // making ReactFlow's nodrag class lookup reliable.
 function PencilIcon() {
   return (
-    <svg style={{ pointerEvents: 'none' }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" style={{ pointerEvents: 'none' }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
     </svg>
@@ -20,7 +20,7 @@ function PencilIcon() {
 
 function CheckIcon() {
   return (
-    <svg style={{ pointerEvents: 'none' }} width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" style={{ pointerEvents: 'none' }} width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="20 6 9 17 4 12" />
     </svg>
   );
@@ -247,7 +247,8 @@ export function MatchNode({ data }: NodeProps) {
                 e.stopPropagation();
                 e.nativeEvent.stopImmediatePropagation();
               }}
-              title="Edit match"
+              title="Edit match scores"
+              aria-label="Edit match scores"
             >
               <PencilIcon />
             </button>
