@@ -311,7 +311,6 @@
   align-items: center;
   align-self: stretch;  /* fill slot content-area height so children can stretch */
   gap: 5px;
-  overflow: hidden;
   flex: 1;
   min-width: 0;
 }
@@ -441,7 +440,9 @@
   display: flex;
   align-self: stretch;    /* fill slot content area height */
   align-items: stretch;   /* stretch children to same height */
-  gap: 2px;
+  /* bleed through .bn-slot padding (7px top/bottom, 8px left) */
+  margin: -7px 0 -7px -8px;
+  gap: 0;
   flex-shrink: 0;
 }
 
@@ -449,9 +450,7 @@
   height: 100%;           /* fill slot content area (38px for couples, 24px for singles) */
   max-height: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 3px;
   object-fit: cover;
-  border: 1px solid rgba(255,255,255,0.12);
   flex-shrink: 0;
 }
 
