@@ -55,9 +55,12 @@ function TemplateIcon() {
   );
 }
 
+export type BracketTheme = 'dark' | 'light';
+
 export interface BracketProps {
   config: BracketConfig;
   defaultReadOnly?: boolean;
+  theme?: BracketTheme;
   showMiniMap?: boolean;
   showControls?: boolean;
   showExportButton?: boolean;
@@ -70,6 +73,7 @@ export interface BracketProps {
 
 function BracketInner({
   config,
+  theme = 'dark',
   showMiniMap = false,
   showControls = true,
   showExportButton = true,
@@ -118,6 +122,7 @@ function BracketInner({
     <div
       ref={containerRef as React.RefObject<HTMLDivElement>}
       className="bracketo-root"
+      data-theme={theme}
       style={{ width, height, position: 'relative' }}
     >
       <div className="bracketo-toolbar">
@@ -172,10 +177,10 @@ function BracketInner({
   );
 }
 
-export function Bracket({ defaultReadOnly = true, ...props }: BracketProps) {
+export function Bracket({ defaultReadOnly = true, theme = 'dark', ...props }: BracketProps) {
   return (
     <BracketProvider defaultReadOnly={defaultReadOnly}>
-      <BracketInner {...props} />
+      <BracketInner theme={theme} {...props} />
     </BracketProvider>
   );
 }

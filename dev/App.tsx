@@ -3,6 +3,7 @@ import { MdBolt, MdEmojiEvents, MdSportsSoccer, MdSportsTennis, MdSportsEsports,
 import { GiShuttlecock } from 'react-icons/gi';
 import { Bracket } from '../src/components/Bracket/Bracket';
 import type { BracketConfig, Participant, ParticipantType, IndicatorType } from '../src/types';
+import type { BracketTheme } from '../src/components/Bracket/Bracket';
 import './demo.css';
 
 /* ─── helpers ─── */
@@ -109,6 +110,7 @@ export default function App() {
   const [settings, setSettings] = useState<Settings>(DEFAULTS);
   const [bracketKey, setBracketKey] = useState(0);
   const [winner, setWinner] = useState<string | null>(null);
+  const [theme, setTheme] = useState<BracketTheme>('dark');
 
   function set<K extends keyof Settings>(key: K, value: Settings[K]) {
     setSettings((s) => ({ ...s, [key]: value }));
@@ -262,6 +264,22 @@ export default function App() {
               <Toggle checked={settings.showSeed}   onChange={(v) => set('showSeed', v)}   label="Show seed number" />
               <Toggle checked={settings.showStatus} onChange={(v) => set('showStatus', v)} label="Show match status" />
             </div>
+
+            <div>
+              <span className="demo-field-label">Theme</span>
+              <div className="demo-radio-group">
+                {(['dark', 'light'] as BracketTheme[]).map((t) => (
+                  <button
+                    key={t}
+                    className={['demo-radio-btn', theme === t ? 'demo-radio-btn--active' : ''].filter(Boolean).join(' ')}
+                    onClick={() => setTheme(t)}
+                  >
+                    <span className="demo-radio-btn-label">{t === 'dark' ? 'Dark' : 'Light'}</span>
+                    <span className="demo-radio-btn-sub">{t === 'dark' ? 'Default dark theme' : 'Light theme'}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="demo-divider" />
@@ -329,6 +347,7 @@ export default function App() {
           <Bracket
             key={bracketKey}
             config={config}
+            theme={theme}
             height="100%"
             width="100%"
             showMiniMap={false}
