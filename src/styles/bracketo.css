@@ -453,7 +453,7 @@
 
 .bn-member-photo {
   height: 100%;           /* fill slot content area (38px for couples, 24px for singles) */
-  max-height: 100%;
+  max-height: 38px;       /* couples slot content area (52px − 7px×2); prevents intrinsic img size blowout */
   aspect-ratio: 1 / 1;
   object-fit: cover;
   flex-shrink: 0;
