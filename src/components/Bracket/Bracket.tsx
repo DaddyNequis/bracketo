@@ -324,7 +324,7 @@ function BracketInner({
         {showControls && <Controls />}
         {showMiniMap && <MiniMap />}
         <Background />
-        <OverlayAddPanel containerRef={containerRef as React.RefObject<HTMLDivElement | null>} />
+        {!readOnly && <OverlayAddPanel containerRef={containerRef as React.RefObject<HTMLDivElement | null>} />}
       </ReactFlow>
     </div>
   );
