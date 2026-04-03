@@ -9,15 +9,61 @@ import './demo.css';
 const COUNTRIES = ['US','DE','BR','FR','ES','JP','KR','AR','IT','NL','PT','MX','AU','CA','GB','CN','NG','ZA','IN','RU'];
 const US_STATES = ['CA','TX','NY','FL','IL','PA','OH','GA','NC','MI','NJ','VA','WA','AZ','MA','TN','IN','MO','MD','WI'];
 
-function avatarUrl(seed: string) {
-  return `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(seed)}&backgroundColor=0f172a,1e293b&radius=50`;
-}
+const FOOTBALL_PLAYERS: { name: string; photo: string }[] = [
+  { name: 'Lionel Messi',           photo: '/players/player1.jpg'  },
+  { name: 'Cristiano Ronaldo',      photo: '/players/player2.jpg'  },
+  { name: 'Neymar Jr',              photo: '/players/player3.jpg'  },
+  { name: 'Kylian Mbappé',          photo: '/players/player4.jpg'  },
+  { name: 'Erling Haaland',         photo: '/players/player5.jpg'  },
+  { name: 'Mohamed Salah',          photo: '/players/player6.jpg'  },
+  { name: 'Robert Lewandowski',     photo: '/players/player7.jpg'  },
+  { name: 'Kevin De Bruyne',        photo: '/players/player8.jpg'  },
+  { name: 'Virgil van Dijk',        photo: '/players/player9.jpg'  },
+  { name: 'Sadio Mané',             photo: '/players/player10.jpg' },
+  { name: 'Harry Kane',             photo: '/players/player11.jpg' },
+  { name: 'Son Heung-min',          photo: '/players/player12.jpg' },
+  { name: 'Bruno Fernandes',        photo: '/players/player13.jpg' },
+  { name: 'Luka Modrić',            photo: '/players/player14.jpg' },
+  { name: 'Toni Kroos',             photo: '/players/player15.jpg' },
+  { name: 'Karim Benzema',          photo: '/players/player16.jpg' },
+  { name: 'Antoine Griezmann',      photo: '/players/player17.jpg' },
+  { name: 'Paulo Dybala',           photo: '/players/player18.jpg' },
+  { name: 'Raheem Sterling',        photo: '/players/player19.jpg' },
+  { name: 'Marcus Rashford',        photo: '/players/player20.jpg' },
+  { name: 'Jack Grealish',          photo: '/players/player21.jpg' },
+  { name: 'Phil Foden',             photo: '/players/player22.jpg' },
+  { name: 'Bukayo Saka',            photo: '/players/player23.jpg' },
+  { name: 'Jude Bellingham',        photo: '/players/player24.jpg' },
+  { name: 'Vinicius Jr',            photo: '/players/player25.jpg' },
+  { name: 'Rodri',                  photo: '/players/player26.jpg' },
+  { name: 'Pedri',                  photo: '/players/player27.jpg' },
+  { name: 'Gavi',                   photo: '/players/player28.jpg' },
+  { name: 'Jamal Musiala',          photo: '/players/player29.jpg' },
+  { name: 'Florian Wirtz',          photo: '/players/player30.jpg' },
+  { name: 'Federico Valverde',      photo: '/players/player31.jpg' },
+  { name: 'Rafael Leão',            photo: '/players/player32.jpg' },
+  { name: 'João Félix',             photo: '/players/player33.jpg' },
+  { name: 'Declan Rice',            photo: '/players/player34.jpg' },
+  { name: 'Casemiro',               photo: '/players/player35.jpg' },
+  { name: "N'Golo Kanté",           photo: '/players/player36.jpg' },
+  { name: 'Ilkay Gündogan',         photo: '/players/player37.jpg' },
+  { name: 'Thomas Müller',          photo: '/players/player38.jpg' },
+  { name: 'Joshua Kimmich',         photo: '/players/player39.jpg' },
+  { name: 'Christian Pulisic',      photo: '/players/player40.jpg' },
+  { name: 'Memphis Depay',          photo: '/players/player41.jpg' },
+  { name: 'Xavi Simons',            photo: '/players/player42.jpg' },
+  { name: 'Cody Gakpo',             photo: '/players/player43.jpg' },
+  { name: 'Bernardo Silva',         photo: '/players/player44.jpg' },
+  { name: 'Rúben Dias',             photo: '/players/player45.jpg' },
+  { name: 'Darwin Núñez',           photo: '/players/player46.jpg' },
+  { name: 'Alexis Mac Allister',    photo: '/players/player47.jpg' },
+  { name: 'Lautaro Martínez',       photo: '/players/player48.jpg' },
+  { name: 'Ángel Di María',         photo: '/players/player49.jpg' },
+  { name: 'Ousmane Dembélé',        photo: '/players/player50.jpg' },
+];
 
-const FIRST_NAMES = ['Alex','Jordan','Sam','Taylor','Morgan','Riley','Casey','Jamie','Blake','Drew','Quinn','Avery'];
-const LAST_NAMES  = ['Smith','Lee','Park','Chen','Rivera','Kim','Müller','Santos','Rossi','Tanaka','García','Okonkwo'];
-
-function rName(seed: number, offset = 0) {
-  return `${FIRST_NAMES[(seed + offset) % FIRST_NAMES.length]} ${LAST_NAMES[(seed * 3 + offset) % LAST_NAMES.length]}`;
+function playerAt(index: number) {
+  return FOOTBALL_PLAYERS[index % FOOTBALL_PLAYERS.length];
 }
 
 function makeParticipants(n: number, type: ParticipantType): Participant[] {
@@ -28,22 +74,22 @@ function makeParticipants(n: number, type: ParticipantType): Participant[] {
     const state1 = US_STATES[(i + 7) % US_STATES.length];
 
     if (type === 'singles') {
-      const name = rName(seed);
+      const { name, photo } = playerAt(i);
       return {
         id: `p${seed}`, name, seed,
-        members: [{ id: `m${seed}`, name, photoUrl: avatarUrl(`m${seed}`), state: state0 }],
+        members: [{ id: `m${seed}`, name, photoUrl: photo, state: state0 }],
         flags: [{ type: 'country' as const, value: country }],
       };
     }
 
     if (type === 'couples') {
-      const p1 = rName(seed, 0);
-      const p2 = rName(seed, 1);
+      const pl1 = playerAt(i * 2);
+      const pl2 = playerAt(i * 2 + 1);
       return {
-        id: `p${seed}`, name: `${p1} / ${p2}`, seed,
+        id: `p${seed}`, name: `${pl1.name} / ${pl2.name}`, seed,
         members: [
-          { id: `m${seed}a`, name: p1, photoUrl: avatarUrl(`m${seed}a`), state: state0 },
-          { id: `m${seed}b`, name: p2, photoUrl: avatarUrl(`m${seed}b`), state: state1 },
+          { id: `m${seed}a`, name: pl1.name, photoUrl: pl1.photo, state: state0 },
+          { id: `m${seed}b`, name: pl2.name, photoUrl: pl2.photo, state: state1 },
         ],
         flags: [{ type: 'country' as const, value: country }],
       };
@@ -51,11 +97,10 @@ function makeParticipants(n: number, type: ParticipantType): Participant[] {
 
     return {
       id: `p${seed}`, name: `Team ${seed}`, seed,
-      members: Array.from({ length: 5 }, (_, j) => ({
-        id: `m${seed}_${j}`, name: rName(seed, j),
-        photoUrl: avatarUrl(`m${seed}_${j}`),
-        state: US_STATES[(i + j) % US_STATES.length],
-      })),
+      members: Array.from({ length: 5 }, (_, j) => {
+        const { name, photo } = playerAt(i * 5 + j);
+        return { id: `m${seed}_${j}`, name, photoUrl: photo, state: US_STATES[(i + j) % US_STATES.length] };
+      }),
       flags: [{ type: 'country' as const, value: country }],
     };
   });
