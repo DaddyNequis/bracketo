@@ -63,6 +63,62 @@
   --bracketo-modal-overlay: rgba(0, 0, 0, 0.85);
 }
 
+/* ─── Light Theme ────────────────────────────────────────────────────────── */
+.bracketo-root[data-theme="light"] {
+  --bracketo-bg:            #f5f5f5;
+  --bracketo-card-bg:       #ffffff;
+  --bracketo-card-bg-hover: #f1f5f9;
+  --bracketo-card-border:   #e2e8f0;
+
+  --bracketo-text:          #111111;
+  --bracketo-text-muted:    #64748b;
+  --bracketo-text-subtle:   #94a3b8;
+
+  --bracketo-winner-bg:     #bbf7d0;
+  --bracketo-winner-border: #86efac;
+  --bracketo-winner-text:   #166534;
+  --bracketo-winner-accent: #16a34a;
+
+  --bracketo-edge:    #cbd5e1;
+  --bracketo-handle:  #94a3b8;
+
+  --bracketo-score-bg:          #f8fafc;
+  --bracketo-score-border:      #e2e8f0;
+  --bracketo-score-winner-bg:   #dcfce7;
+  --bracketo-score-winner-text: #15803d;
+
+  --bracketo-mode-view-bg:     #f1f5f9;
+  --bracketo-mode-edit-bg:     #dcfce7;
+  --bracketo-mode-edit-text:   #166534;
+  --bracketo-mode-edit-border: #86efac;
+
+  --bracketo-label-text: #64748b;
+
+  --bracketo-danger:               #dc2626;
+  --bracketo-danger-bg:            rgba(220, 38, 38, 0.08);
+  --bracketo-danger-bg-hover:      rgba(220, 38, 38, 0.16);
+  --bracketo-danger-border:        rgba(220, 38, 38, 0.20);
+  --bracketo-danger-border-strong: rgba(220, 38, 38, 0.40);
+
+  --bracketo-modal-bg:      #ffffff;
+  --bracketo-modal-border:  #e2e8f0;
+  --bracketo-modal-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Light Theme — component overrides ─────────────────────────────────── */
+.bracketo-root[data-theme="light"] .bn {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.bracketo-root[data-theme="light"] .bn--highlighted {
+  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.bracketo-root[data-theme="light"] .bn--completed {
+  border-color: #86efac;
+  border-left-color: #4ade80;
+}
+
 /* ─── Root Container ─────────────────────────────────────────────────────── */
 .bracketo-root {
   font-family: var(--bracketo-font-body);
