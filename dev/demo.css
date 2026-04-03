@@ -15,11 +15,13 @@
 
 /* ─── Header ─────────────────────────────────────────────────────────────── */
 .demo-header {
-  border-bottom: 1px solid var(--bracketo-card-bg);
+  border-bottom: 1px solid rgba(34,197,94,0.1);
   padding: 14px 24px;
   display: flex;
   align-items: center;
   gap: 14px;
+  background: linear-gradient(180deg, rgba(34,197,94,0.04) 0%, transparent 100%);
+  box-shadow: 0 1px 0 rgba(34,197,94,0.08);
 }
 
 .demo-logo {
@@ -169,6 +171,7 @@
 .demo-radio-btn--active {
   border-color: var(--bracketo-export-bg);
   background: rgba(22, 163, 74, 0.12);
+  box-shadow: inset 0 0 24px rgba(34,197,94,0.05), 0 0 0 0 transparent;
 }
 
 .demo-radio-btn:focus-visible {
@@ -235,6 +238,7 @@
   border-color: var(--bracketo-export-bg);
   background: rgba(22, 163, 74, 0.15);
   color: var(--bracketo-mode-edit-text);
+  box-shadow: 0 0 10px rgba(22,163,74,0.12);
 }
 
 .demo-segmented-btn:focus-visible {
@@ -386,9 +390,12 @@
 }
 
 .demo-preset-emoji {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--bracketo-mode-edit-text);
 }
 
 .demo-preset-info {

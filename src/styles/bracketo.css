@@ -47,7 +47,7 @@
   --bracketo-mode-edit-border: #166534;
 
   /* Label nodes */
-  --bracketo-label-text: #8899aa; /* raised from #475569 — now passes WCAG AA (≈4.97:1) */
+  --bracketo-label-text: #6a8a72; /* green-tinted neutral — raised from #475569, passes WCAG AA */
 
   /* Danger / destructive actions */
   --bracketo-danger:        #f87171;
@@ -135,21 +135,24 @@
 .bn {
   background: var(--bracketo-card-bg);
   border: 1px solid var(--bracketo-card-border);
+  border-left: 2px solid rgba(34,197,94,0.18);
   border-radius: var(--bracketo-card-radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: border-color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .bn--highlighted {
   border-color: var(--bracketo-highlight);
-  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 2px 8px rgba(0,0,0,0.4);
+  border-left-color: var(--bracketo-highlight);
+  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 2px 14px rgba(0,0,0,0.65);
 }
 
 .bn--completed {
-  border-color: #334155;
+  border-color: #1c3323;
+  border-left-color: rgba(34,197,94,0.28);
 }
 
 .bn--bye {
@@ -543,10 +546,11 @@
 .bracketo-modal {
   background: var(--bracketo-modal-bg);
   border: 1px solid var(--bracketo-modal-border);
+  border-top: 1px solid rgba(34,197,94,0.2);
   border-radius: var(--bracketo-modal-radius);
   width: 440px;
   max-width: calc(100vw - 32px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), inset 0 1px 0 rgba(34,197,94,0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;

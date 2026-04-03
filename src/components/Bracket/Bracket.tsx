@@ -148,7 +148,7 @@ function BracketInner({
 
       {!readOnly && (
         <div className="bracketo-edit-hint" aria-live="polite">
-          Edit mode — tap ✏️ on any match to enter scores
+          Edit mode — tap the edit icon on any match to enter scores
         </div>
       )}
 

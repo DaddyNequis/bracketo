@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { MdEmojiEvents } from 'react-icons/md';
 import { useBracketStore } from '../Bracket/BracketContext';
 import { tsToDatetimeLocal, datetimeLocalToTs } from '../../utils/matchSchedule';
 
@@ -255,7 +256,7 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
         {/* Winner banner */}
         {isCompleted && match.winnerId && (
           <div className="bracketo-modal-winner-banner">
-            🏆 Winner: {config.participants.find((p) => p.id === match.winnerId)?.name}
+            <MdEmojiEvents style={{ verticalAlign: 'middle', marginRight: 5 }} />Winner: {config.participants.find((p) => p.id === match.winnerId)?.name}
           </div>
         )}
 

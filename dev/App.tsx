@@ -1,4 +1,6 @@
 import { useState, useMemo } from 'react';
+import { MdBolt, MdEmojiEvents, MdSportsSoccer, MdSportsTennis, MdSportsEsports, MdEdit } from 'react-icons/md';
+import { GiShuttlecock } from 'react-icons/gi';
 import { Bracket } from '../src/components/Bracket/Bracket';
 import type { BracketConfig, Participant, ParticipantType, IndicatorType } from '../src/types';
 import './demo.css';
@@ -138,10 +140,10 @@ export default function App() {
 
       {/* ── Header ── */}
       <header className="demo-header">
-        <span className="demo-logo">⚡ Bracketo</span>
+        <span className="demo-logo"><MdBolt style={{ verticalAlign: 'middle', marginRight: 4 }} />Bracketo</span>
         <span className="demo-subtitle">Tournament bracket demo</span>
         {winnerParticipant && (
-          <div className="demo-winner-banner">🏆 {winnerParticipant.name} wins!</div>
+          <div className="demo-winner-banner"><MdEmojiEvents style={{ verticalAlign: 'middle', marginRight: 5 }} />{winnerParticipant.name} wins!</div>
         )}
       </header>
 
@@ -155,18 +157,18 @@ export default function App() {
             <span className="demo-section-title demo-section-title--accent">Quick start</span>
             <div className="demo-preset-list">
               {([
-                { emoji: '⚽', label: 'Soccer',           sub: '8 teams · Single elim',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: true,  grandFinalReset: false, showSeed: false, showStatus: true } },
-                { emoji: '🎾', label: 'Tennis singles',   sub: '8 players · Best of 5',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 5, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
-                { emoji: '🏸', label: 'Badminton doubles', sub: '8 pairs · Best of 3',       s: { playerCount: 8,  format: 'single_elimination', participantType: 'couples', indicatorType: 'photo', setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
-                { emoji: '🕹️', label: 'FGC Double Elim',  sub: '8 players · Losers bracket', s: { playerCount: 8,  format: 'double_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: true,  showSeed: true,  showStatus: true } },
-                { emoji: '🏆', label: 'Big bracket',      sub: '16 teams · Single elim',     s: { playerCount: 16, format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: false, grandFinalReset: false, showSeed: false, showStatus: true } },
-              ] as { emoji: string; label: string; sub: string; s: Settings }[]).map(({ emoji, label, sub, s }) => (
+                { icon: <MdSportsSoccer />, label: 'Soccer',           sub: '8 teams · Single elim',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: true,  grandFinalReset: false, showSeed: false, showStatus: true } },
+                { icon: <MdSportsTennis />, label: 'Tennis singles',   sub: '8 players · Best of 5',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 5, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
+                { icon: <GiShuttlecock />, label: 'Badminton doubles', sub: '8 pairs · Best of 3',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'couples', indicatorType: 'photo', setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
+                { icon: <MdSportsEsports />, label: 'FGC Double Elim', sub: '8 players · Losers bracket', s: { playerCount: 8,  format: 'double_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: true,  showSeed: true,  showStatus: true } },
+                { icon: <MdEmojiEvents />,  label: 'Big bracket',      sub: '16 teams · Single elim',     s: { playerCount: 16, format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: false, grandFinalReset: false, showSeed: false, showStatus: true } },
+              ] as { icon: React.ReactNode; label: string; sub: string; s: Settings }[]).map(({ icon, label, sub, s }) => (
                 <button
                   key={label}
                   className="demo-preset-btn"
                   onClick={() => { setSettings(s); setWinner(null); setBracketKey((k) => k + 1); }}
                 >
-                  <span className="demo-preset-emoji">{emoji}</span>
+                  <span className="demo-preset-emoji">{icon}</span>
                   <span className="demo-preset-info">
                     <span className="demo-preset-name">{label}</span>
                     <span className="demo-preset-sub">{sub}</span>
@@ -317,7 +319,7 @@ export default function App() {
 
           <div className="demo-callout">
             <strong>To enter scores:</strong>
-            Click <strong>Edit</strong> in the bracket toolbar, then tap ✏️ on any match.
+            Click <strong>Edit</strong> in the bracket toolbar, then tap the edit icon on any match.
           </div>
 
         </aside>
