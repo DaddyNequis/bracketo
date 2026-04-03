@@ -462,6 +462,7 @@
 /* couples parent box = 38px content + 5px×2 bleed = 48px; let photos fill it */
 .bn-slot--couples .bn-member-photo {
   max-height: 48px;
+  aspect-ratio: 0.87 / 1;
 }
 
 .bn-member-photo--placeholder {
