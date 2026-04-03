@@ -29,3 +29,24 @@ export interface LabelNodeData extends Record<string, unknown> {
   label: string;
   bracketSection: BracketSection;
 }
+
+export type TextVariant = 'title' | 'text';
+
+export interface ImageNodeData extends Record<string, unknown> {
+  src: string;
+  opacity: number;
+}
+
+export interface TextNodeData extends Record<string, unknown> {
+  content: string;
+  variant: TextVariant;
+}
+
+export interface OverlayNode {
+  id: string;
+  type: 'imageNode' | 'textNode';
+  position: { x: number; y: number };
+  width?: number;
+  height?: number;
+  data: ImageNodeData | TextNodeData;
+}

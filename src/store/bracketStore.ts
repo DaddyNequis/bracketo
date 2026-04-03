@@ -1,6 +1,7 @@
 import { createStore } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { Bracket, BracketConfig, Match } from '../types';
+import type { OverlayNode, TextVariant, ImageNodeData, TextNodeData } from '../types/flow';
 import { buildSingleElimination } from '../algorithms/singleElimination';
 import { buildDoubleElimination } from '../algorithms/doubleElimination';
 import { determineMatchWinner } from '../utils/scoring';
@@ -10,6 +11,7 @@ export interface BracketState {
   highlightedParticipantId: string | null;
   highlightedMatchIds: Set<string>;
   highlightedEdgeIds: Set<string>;
+  overlayNodes: OverlayNode[];
 }
 
 export interface BracketActions {
@@ -21,6 +23,15 @@ export interface BracketActions {
   resetMatch: (matchId: string) => void;
   setMatchSchedule: (matchId: string, scheduledAt: number | undefined, location: string | undefined) => void;
   setHighlightPath: (participantId: string | null) => void;
+  addImageNode: (src: string, position: { x: number; y: number }) => void;
+  addTextNode: (variant: TextVariant, position: { x: number; y: number }) => void;
+  updateOverlayNodePosition: (id: string, position: { x: number; y: number }) => void;
+  updateOverlayNodeSize: (id: string, width: number, height: number) => void;
+  updateImageOpacity: (id: string, opacity: number) => void;
+  updateImageSrc: (id: string, src: string) => void;
+  updateTextContent: (id: string, content: string) => void;
+  updateTextVariant: (id: string, variant: TextVariant) => void;
+  deleteOverlayNode: (id: string) => void;
 }
 
 export type BracketStore = BracketState & BracketActions;
@@ -32,6 +43,7 @@ export function createBracketStore() {
       highlightedParticipantId: null,
       highlightedMatchIds: new Set<string>(),
       highlightedEdgeIds: new Set<string>(),
+      overlayNodes: [],
 
       initBracket(config: BracketConfig) {
         const matches =
@@ -50,6 +62,7 @@ export function createBracketStore() {
           state.highlightedParticipantId = null;
           state.highlightedMatchIds = new Set();
           state.highlightedEdgeIds = new Set();
+          state.overlayNodes = [];
         });
       },
 
@@ -184,6 +197,84 @@ export function createBracketStore() {
 
           state.highlightedMatchIds = matchIds;
           state.highlightedEdgeIds = edgeIds;
+        });
+      },
+
+      addImageNode(src: string, position: { x: number; y: number }) {
+        set((state) => {
+          state.overlayNodes.push({
+            id: `img-${crypto.randomUUID()}`,
+            type: 'imageNode',
+            position,
+            data: { src, opacity: 1 } as ImageNodeData,
+          });
+        });
+      },
+
+      addTextNode(variant: TextVariant, position: { x: number; y: number }) {
+        set((state) => {
+          state.overlayNodes.push({
+            id: `txt-${crypto.randomUUID()}`,
+            type: 'textNode',
+            position,
+            data: { content: variant === 'title' ? 'Title' : 'Text', variant } as TextNodeData,
+          });
+        });
+      },
+
+      updateOverlayNodePosition(id: string, position: { x: number; y: number }) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node) node.position = position;
+        });
+      },
+
+      updateOverlayNodeSize(id: string, width: number, height: number) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node) { node.width = width; node.height = height; }
+        });
+      },
+
+      updateImageOpacity(id: string, opacity: number) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node && node.type === 'imageNode') {
+            (node.data as ImageNodeData).opacity = Math.max(0, Math.min(1, opacity));
+          }
+        });
+      },
+
+      updateImageSrc(id: string, src: string) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node && node.type === 'imageNode') {
+            (node.data as ImageNodeData).src = src;
+          }
+        });
+      },
+
+      updateTextContent(id: string, content: string) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node && node.type === 'textNode') {
+            (node.data as TextNodeData).content = content;
+          }
+        });
+      },
+
+      updateTextVariant(id: string, variant: TextVariant) {
+        set((state) => {
+          const node = state.overlayNodes.find((n) => n.id === id);
+          if (node && node.type === 'textNode') {
+            (node.data as TextNodeData).variant = variant;
+          }
+        });
+      },
+
+      deleteOverlayNode(id: string) {
+        set((state) => {
+          state.overlayNodes = state.overlayNodes.filter((n) => n.id !== id);
         });
       },
     })),
