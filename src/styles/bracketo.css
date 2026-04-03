@@ -439,13 +439,15 @@
 /* ─── Photo indicator ────────────────────────────────────────────────────── */
 .bn-member-photos {
   display: flex;
-  align-items: center;    /* vertically center with text */
+  align-self: stretch;    /* fill slot content area height */
+  align-items: stretch;   /* stretch children to same height */
   gap: 2px;
   flex-shrink: 0;
 }
 
 .bn-member-photo {
-  height: 16px;           /* same visual size as player name text */
+  height: 100%;           /* fill slot content area (38px for couples, 24px for singles) */
+  max-height: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 3px;
   object-fit: cover;
