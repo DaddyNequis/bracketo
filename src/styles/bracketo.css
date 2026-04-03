@@ -440,10 +440,15 @@
   display: flex;
   align-self: stretch;    /* fill slot content area height */
   align-items: stretch;   /* stretch children to same height */
-  /* bleed through .bn-slot padding (7px top/bottom, 8px left) */
-  margin: -7px 0 -7px -8px;
+  /* bleed top/bottom, leaving 2px gap each side */
+  margin: -5px 0;
   gap: 0;
   flex-shrink: 0;
+}
+
+/* bleed to left card edge only when no seed precedes the photos */
+.bn-member-photos:first-child {
+  margin-left: -8px;
 }
 
 .bn-member-photo {
