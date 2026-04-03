@@ -61,7 +61,7 @@ function SlotRow({ slot, participantType, indicatorType, showSeed, isWinner, isE
   // ── Photo indicator: avatars side-by-side ──────────────────────────────
   const PhotoAvatars = () => {
     if (!p || isBye || isEmpty) return null;
-    const members = participantType === 'singles' ? [member0] : [member0, member1].filter(Boolean);
+    const members = participantType === 'couples' ? [member0, member1].filter(Boolean) : [member0];
     return (
       <div className="bn-member-photos">
         {members.map((m) =>
