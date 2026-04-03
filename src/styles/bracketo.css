@@ -74,7 +74,7 @@
   --bracketo-text-muted:    #64748b;
   --bracketo-text-subtle:   #94a3b8;
 
-  --bracketo-winner-bg:     #f0fdf4;
+  --bracketo-winner-bg:     #bbf7d0;
   --bracketo-winner-border: #86efac;
   --bracketo-winner-text:   #166534;
   --bracketo-winner-accent: #16a34a;
@@ -103,6 +103,20 @@
   --bracketo-modal-bg:      #ffffff;
   --bracketo-modal-border:  #e2e8f0;
   --bracketo-modal-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Light Theme — component overrides ─────────────────────────────────── */
+.bracketo-root[data-theme="light"] .bn {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.bracketo-root[data-theme="light"] .bn--highlighted {
+  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.bracketo-root[data-theme="light"] .bn--completed {
+  border-color: #86efac;
+  border-left-color: #4ade80;
 }
 
 /* ─── Root Container ─────────────────────────────────────────────────────── */
