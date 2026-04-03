@@ -1244,8 +1244,7 @@
   letter-spacing: -0.02em;
   color: var(--bracketo-text);
   text-transform: uppercase;
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre;
   display: block;
 }
 
@@ -1254,8 +1253,7 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--bracketo-text-subtle);
-  white-space: pre-wrap;
-  word-break: break-word;
+  white-space: pre;
   display: block;
 }
 

@@ -185,6 +185,7 @@ function BracketInner({
   const containerRef = useContainerRef();
   const [readOnly, setReadOnly] = useReadOnly();
   const [templateOpen, setTemplateOpen] = useState(false);
+  const [selectedOverlayIds, setSelectedOverlayIds] = useState<Set<string>>(new Set());
 
   const initBracket = useBracketStore((s) => s.initBracket);
   const bracket = useBracketStore((s) => s.bracket);
@@ -225,9 +226,10 @@ function BracketInner({
         data: o.data,
         draggable: true,
         selectable: true,
+        selected: selectedOverlayIds.has(o.id),
         ...(o.width && o.height ? { style: { width: o.width, height: o.height } } : {}),
       })),
-    [overlayNodes],
+    [overlayNodes, selectedOverlayIds],
   );
 
   const allNodes = useMemo(() => [...nodes, ...overlayRfNodes], [nodes, overlayRfNodes]);
@@ -248,6 +250,14 @@ function BracketInner({
         }
         if (change.type === 'remove') {
           deleteOverlayNode(nodeId);
+        }
+        if (change.type === 'select') {
+          setSelectedOverlayIds((prev) => {
+            const next = new Set(prev);
+            if (change.selected) next.add(nodeId);
+            else next.delete(nodeId);
+            return next;
+          });
         }
       }
     },

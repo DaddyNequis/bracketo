@@ -70,7 +70,7 @@ export function TextNode({ id, data, selected }: NodeProps) {
             onChange={(e) => setDraft(e.target.value)}
             onBlur={commitEdit}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitEdit(); }
+              if (e.key === 'Enter' && !e.altKey) { e.preventDefault(); commitEdit(); }
               if (e.key === 'Escape') { setDraft(content); setEditing(false); }
             }}
           />
