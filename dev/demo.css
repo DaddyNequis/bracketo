@@ -8,7 +8,7 @@
 /* ─── Shell ──────────────────────────────────────────────────────────────── */
 .demo-root {
   min-height: 100vh;
-  background: #0a0f1e; /* slightly deeper than --bracketo-bg for depth */
+  background: #040404; /* slightly deeper than --bracketo-bg for depth */
   color: var(--bracketo-text);
   font-family: var(--bracketo-font-body);
 }

@@ -7,42 +7,42 @@
   --bracketo-font-display: 'Barlow Condensed', 'Impact', 'Arial Narrow', sans-serif;
 
   /* Surfaces */
-  --bracketo-bg:            #0f172a;
-  --bracketo-card-bg:       #1e293b;
-  --bracketo-card-bg-hover: #243347;
-  --bracketo-card-border:   #334155;
+  --bracketo-bg:            #080808;
+  --bracketo-card-bg:       #111111;
+  --bracketo-card-bg-hover: #191919;
+  --bracketo-card-border:   #222222;
   --bracketo-card-radius:   10px;
 
   /* Text */
-  --bracketo-text:          #e2e8f0;
-  --bracketo-text-muted:    #94a3b8; /* raised from #64748b — now passes WCAG AA (≥4.5:1) */
-  --bracketo-text-subtle:   #c4d0de; /* raised to maintain hierarchy above muted */
+  --bracketo-text:          #e8e8e8;
+  --bracketo-text-muted:    #999999; /* raised from #64748b — now passes WCAG AA (≥4.5:1) */
+  --bracketo-text-subtle:   #c4c4c4; /* raised to maintain hierarchy above muted */
 
-  /* Winner */
-  --bracketo-winner-bg:     #172554;
-  --bracketo-winner-border: #1e40af;
-  --bracketo-winner-text:   #93c5fd;
-  --bracketo-winner-accent: #3b82f6;
+  /* Winner — green (brand accent) instead of blue */
+  --bracketo-winner-bg:     #081408;
+  --bracketo-winner-border: #166534;
+  --bracketo-winner-text:   #86efac;
+  --bracketo-winner-accent: #22c55e;
 
   /* Highlight path */
   --bracketo-highlight:      #f59e0b;
   --bracketo-highlight-glow: rgba(245, 158, 11, 0.2);
 
   /* Edges & handles */
-  --bracketo-edge:    #334155;
-  --bracketo-handle:  #475569;
+  --bracketo-edge:    #222222;
+  --bracketo-handle:  #333333;
 
   /* Scores */
-  --bracketo-score-bg:         #0f172a;
-  --bracketo-score-border:     #334155;
-  --bracketo-score-winner-bg:  #1e3a5f;
-  --bracketo-score-winner-text: #60a5fa;
+  --bracketo-score-bg:          #080808;
+  --bracketo-score-border:      #222222;
+  --bracketo-score-winner-bg:   #081408;
+  --bracketo-score-winner-text: #4ade80;
 
   /* Toolbar / buttons */
   --bracketo-export-bg:        #16a34a; /* athletic green — replaces Tailwind blue-500 */
   --bracketo-export-hover:     #15803d; /* green-700 hover */
-  --bracketo-mode-view-bg:     #1e293b;
-  --bracketo-mode-edit-bg:     #1a2e1a;
+  --bracketo-mode-view-bg:     #111111;
+  --bracketo-mode-edit-bg:     #0d1f0d;
   --bracketo-mode-edit-text:   #4ade80;
   --bracketo-mode-edit-border: #166534;
 
@@ -57,10 +57,10 @@
   --bracketo-danger-border-strong: rgba(239, 68, 68, 0.50);
 
   /* Modal */
-  --bracketo-modal-bg:      #1e293b;
-  --bracketo-modal-border:  #334155;
+  --bracketo-modal-bg:      #111111;
+  --bracketo-modal-border:  #222222;
   --bracketo-modal-radius:  14px;
-  --bracketo-modal-overlay: rgba(0, 0, 0, 0.7);
+  --bracketo-modal-overlay: rgba(0, 0, 0, 0.85);
 }
 
 /* ─── Root Container ─────────────────────────────────────────────────────── */
@@ -235,12 +235,12 @@
   box-shadow: 0 0 4px rgba(74,222,128,0.6);
 }
 
-/* Finished → blue */
+/* Finished → emerald (softer than live green) */
 .bn-header-status--done {
-  color: #60a5fa;
+  color: #6ee7b7;
 }
 .bn-header-status--done .bn-status-dot {
-  background: #60a5fa;
+  background: #6ee7b7;
 }
 
 /* BYE */
@@ -383,7 +383,7 @@
 
 .bn-score--winner {
   background: var(--bracketo-score-winner-bg);
-  border-color: rgba(59, 130, 246, 0.3);
+  border-color: rgba(34, 197, 94, 0.3);
   color: var(--bracketo-score-winner-text);
 }
 
@@ -730,7 +730,7 @@
 }
 
 .bracketo-tpl-input {
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 7px;
   color: var(--bracketo-text);
@@ -811,7 +811,7 @@
 }
 
 .bracketo-modal-schedule-input {
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 7px;
   color: var(--bracketo-text);
@@ -867,7 +867,7 @@
 .bracketo-modal-score-input {
   width: 64px;
   height: 36px;
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 8px;
   color: var(--bracketo-text);
@@ -892,8 +892,8 @@
 }
 
 .bracketo-modal-score-input--winner {
-  border-color: rgba(59,130,246,0.5);
-  color: #60a5fa;
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #4ade80;
 }
 
 .bracketo-modal-score-input:disabled {
