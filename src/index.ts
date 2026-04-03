@@ -1,7 +1,7 @@
 import './styles/bracketo.css';
 
 export { Bracket } from './components/Bracket/Bracket';
-export type { BracketProps } from './components/Bracket/Bracket';
+export type { BracketProps, BracketTheme } from './components/Bracket/Bracket';
 export { BracketProvider, useBracketStore } from './components/Bracket/BracketContext';
 
 export { useBracket } from './hooks/useBracket';
