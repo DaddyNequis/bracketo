@@ -1,11 +1,14 @@
 import { useState, useMemo } from 'react';
+import { MdBolt, MdEmojiEvents, MdSportsSoccer, MdSportsTennis, MdSportsEsports, MdEdit } from 'react-icons/md';
+import { GiShuttlecock } from 'react-icons/gi';
 import { Bracket } from '../src/components/Bracket/Bracket';
 import type { BracketConfig, Participant, ParticipantType, IndicatorType } from '../src/types';
+import './demo.css';
 
 /* ─── helpers ─── */
 const COUNTRIES = ['US','DE','BR','FR','ES','JP','KR','AR','IT','NL','PT','MX','AU','CA','GB','CN','NG','ZA','IN','RU'];
 const US_STATES = ['CA','TX','NY','FL','IL','PA','OH','GA','NC','MI','NJ','VA','WA','AZ','MA','TN','IN','MO','MD','WI'];
-// Placeholder avatars via DiceBear (deterministic, no external deps required)
+
 function avatarUrl(seed: string) {
   return `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(seed)}&backgroundColor=0f172a,1e293b&radius=50`;
 }
@@ -21,16 +24,13 @@ function makeParticipants(n: number, type: ParticipantType): Participant[] {
   return Array.from({ length: n }, (_, i) => {
     const seed = i + 1;
     const country = COUNTRIES[i % COUNTRIES.length];
-
     const state0 = US_STATES[i % US_STATES.length];
     const state1 = US_STATES[(i + 7) % US_STATES.length];
 
     if (type === 'singles') {
       const name = rName(seed);
       return {
-        id: `p${seed}`,
-        name,
-        seed,
+        id: `p${seed}`, name, seed,
         members: [{ id: `m${seed}`, name, photoUrl: avatarUrl(`m${seed}`), state: state0 }],
         flags: [{ type: 'country' as const, value: country }],
       };
@@ -40,9 +40,7 @@ function makeParticipants(n: number, type: ParticipantType): Participant[] {
       const p1 = rName(seed, 0);
       const p2 = rName(seed, 1);
       return {
-        id: `p${seed}`,
-        name: `${p1} / ${p2}`,
-        seed,
+        id: `p${seed}`, name: `${p1} / ${p2}`, seed,
         members: [
           { id: `m${seed}a`, name: p1, photoUrl: avatarUrl(`m${seed}a`), state: state0 },
           { id: `m${seed}b`, name: p2, photoUrl: avatarUrl(`m${seed}b`), state: state1 },
@@ -51,18 +49,19 @@ function makeParticipants(n: number, type: ParticipantType): Participant[] {
       };
     }
 
-    // teams
     return {
-      id: `p${seed}`,
-      name: `Team ${seed}`,
-      seed,
-      members: Array.from({ length: 5 }, (_, j) => ({ id: `m${seed}_${j}`, name: rName(seed, j), photoUrl: avatarUrl(`m${seed}_${j}`), state: US_STATES[(i + j) % US_STATES.length] })),
+      id: `p${seed}`, name: `Team ${seed}`, seed,
+      members: Array.from({ length: 5 }, (_, j) => ({
+        id: `m${seed}_${j}`, name: rName(seed, j),
+        photoUrl: avatarUrl(`m${seed}_${j}`),
+        state: US_STATES[(i + j) % US_STATES.length],
+      })),
       flags: [{ type: 'country' as const, value: country }],
     };
   });
 }
 
-/* ─── settings state ─── */
+/* ─── Settings state ─── */
 interface Settings {
   playerCount: number;
   format: 'single_elimination' | 'double_elimination';
@@ -89,33 +88,23 @@ const DEFAULTS: Settings = {
   showStatus: true,
 };
 
-/* ─── small UI atoms ─── */
-const S = {
-  label: { fontSize: 11, fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.06em', color: '#64748b', marginBottom: 5, display: 'block' },
-  input: { width: '100%', background: '#0f172a', border: '1px solid #334155', borderRadius: 7, color: '#e2e8f0', padding: '7px 10px', fontSize: 13, fontFamily: 'inherit', outline: 'none' },
-  select: { width: '100%', background: '#0f172a', border: '1px solid #334155', borderRadius: 7, color: '#e2e8f0', padding: '7px 10px', fontSize: 13, fontFamily: 'inherit', outline: 'none', cursor: 'pointer' },
-};
-
+/* ─── Toggle component ─── */
 function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
-    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', userSelect: 'none' }}>
+    <label className="demo-toggle-label" onClick={() => onChange(!checked)}>
       <div
-        onClick={() => onChange(!checked)}
-        style={{
-          width: 36, height: 20, borderRadius: 10, position: 'relative', flexShrink: 0, cursor: 'pointer',
-          background: checked ? '#3b82f6' : '#334155', transition: 'background 0.2s',
-        }}
+        className={['demo-toggle-track', checked ? 'demo-toggle-track--on' : ''].filter(Boolean).join(' ')}
       >
-        <div style={{
-          position: 'absolute', top: 3, left: checked ? 18 : 3, width: 14, height: 14,
-          background: '#fff', borderRadius: '50%', transition: 'left 0.2s',
-        }} />
+        <div className={['demo-toggle-thumb', checked ? 'demo-toggle-thumb--on' : ''].filter(Boolean).join(' ')} />
       </div>
-      <span style={{ fontSize: 13, color: checked ? '#e2e8f0' : '#64748b' }}>{label}</span>
+      <span className={['demo-toggle-text', checked ? 'demo-toggle-text--on' : ''].filter(Boolean).join(' ')}>
+        {label}
+      </span>
     </label>
   );
 }
 
+/* ─── App ─── */
 export default function App() {
   const [settings, setSettings] = useState<Settings>(DEFAULTS);
   const [bracketKey, setBracketKey] = useState(0);
@@ -144,244 +133,199 @@ export default function App() {
     grandFinalReset: settings.format === 'double_elimination' ? settings.grandFinalReset : false,
   }), [settings]);
 
-  const winnerParticipant = winner
-    ? config.participants.find((p) => p.id === winner)
-    : null;
+  const winnerParticipant = winner ? config.participants.find((p) => p.id === winner) : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0f1e', color: '#e2e8f0', fontFamily: 'system-ui, sans-serif' }}>
+    <div className="demo-root">
 
-      {/* ── Page header ── */}
-      <div style={{ borderBottom: '1px solid #1e293b', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', color: '#fff' }}>⚡ Bracketo</div>
-        <div style={{ fontSize: 13, color: '#475569' }}>Tournament bracket demo</div>
+      {/* ── Header ── */}
+      <header className="demo-header">
+        <span className="demo-logo"><MdBolt style={{ verticalAlign: 'middle', marginRight: 4 }} />Bracketo</span>
+        <span className="demo-subtitle">Tournament bracket demo</span>
         {winnerParticipant && (
-          <div style={{ marginLeft: 'auto', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 8, padding: '6px 14px', fontSize: 13, fontWeight: 600, color: '#f59e0b' }}>
-            🏆 {winnerParticipant.name} wins!
-          </div>
+          <div className="demo-winner-banner"><MdEmojiEvents style={{ verticalAlign: 'middle', marginRight: 5 }} />{winnerParticipant.name} wins!</div>
         )}
-      </div>
+      </header>
 
-      <div style={{ display: 'flex', height: 'calc(100vh - 57px)' }}>
+      <div className="demo-layout">
 
-        {/* ── Settings sidebar ── */}
-        <aside style={{ width: 260, flexShrink: 0, background: '#0f172a', borderRight: '1px solid #1e293b', padding: '20px 16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            Settings
-          </div>
+        {/* ── Sidebar ── */}
+        <aside className="demo-sidebar">
 
-          {/* Players */}
-          <div>
-            <span style={S.label}>Players / Teams</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <input
-                type="range"
-                min={2} max={32} step={1}
-                value={settings.playerCount}
-                onChange={(e) => set('playerCount', Number(e.target.value))}
-                style={{ flex: 1, accentColor: '#3b82f6' }}
-              />
-              <span style={{ minWidth: 24, textAlign: 'right', fontWeight: 700, fontSize: 15, color: '#e2e8f0' }}>
-                {settings.playerCount}
-              </span>
-            </div>
-          </div>
-
-          {/* Format */}
-          <div>
-            <span style={S.label}>Format</span>
-            <select
-              style={S.select}
-              value={settings.format}
-              onChange={(e) => set('format', e.target.value as Settings['format'])}
-            >
-              <option value="single_elimination">Single Elimination</option>
-              <option value="double_elimination">Double Elimination</option>
-            </select>
-          </div>
-
-          {/* Participant type */}
-          <div>
-            <span style={S.label}>Bracket type</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {/* Quick start */}
+          <div className="demo-section demo-section--quick-start">
+            <span className="demo-section-title demo-section-title--accent">Quick start</span>
+            <div className="demo-preset-list">
               {([
-                { value: 'singles', label: 'Singles', sub: 'One player per slot' },
-                { value: 'couples', label: 'Couples / Doubles', sub: 'Two players per slot' },
-                { value: 'teams',   label: 'Teams', sub: 'Team name per slot' },
-              ] as { value: ParticipantType; label: string; sub: string }[]).map(({ value, label, sub }) => (
+                { icon: <MdSportsSoccer />, label: 'Soccer',           sub: '8 teams · Single elim',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: true,  grandFinalReset: false, showSeed: false, showStatus: true } },
+                { icon: <MdSportsTennis />, label: 'Tennis singles',   sub: '8 players · Best of 5',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 5, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
+                { icon: <GiShuttlecock />, label: 'Badminton doubles', sub: '8 pairs · Best of 3',      s: { playerCount: 8,  format: 'single_elimination', participantType: 'couples', indicatorType: 'photo', setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true,  showStatus: true } },
+                { icon: <MdSportsEsports />, label: 'FGC Double Elim', sub: '8 players · Losers bracket', s: { playerCount: 8,  format: 'double_elimination', participantType: 'singles', indicatorType: 'flag',  setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: true,  showSeed: true,  showStatus: true } },
+                { icon: <MdEmojiEvents />,  label: 'Big bracket',      sub: '16 teams · Single elim',     s: { playerCount: 16, format: 'single_elimination', participantType: 'teams',   indicatorType: 'flag',  setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: false, grandFinalReset: false, showSeed: false, showStatus: true } },
+              ] as { icon: React.ReactNode; label: string; sub: string; s: Settings }[]).map(({ icon, label, sub, s }) => (
                 <button
-                  key={value}
-                  onClick={() => set('participantType', value)}
-                  style={{
-                    display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
-                    padding: '8px 10px', borderRadius: 8, border: '1px solid', textAlign: 'left',
-                    borderColor: settings.participantType === value ? '#3b82f6' : '#334155',
-                    background: settings.participantType === value ? 'rgba(59,130,246,0.12)' : 'transparent',
-                    cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
-                  }}
+                  key={label}
+                  className="demo-preset-btn"
+                  onClick={() => { setSettings(s); setWinner(null); setBracketKey((k) => k + 1); }}
                 >
-                  <span style={{ fontSize: 13, fontWeight: 600, color: settings.participantType === value ? '#93c5fd' : '#94a3b8' }}>{label}</span>
-                  <span style={{ fontSize: 11, color: '#475569', marginTop: 1 }}>{sub}</span>
+                  <span className="demo-preset-emoji">{icon}</span>
+                  <span className="demo-preset-info">
+                    <span className="demo-preset-name">{label}</span>
+                    <span className="demo-preset-sub">{sub}</span>
+                  </span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Indicator type */}
-          <div>
-            <span style={S.label}>Indicator</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-              {([
-                { value: 'flag',        label: 'Flag',         sub: 'Country flag per slot' },
-                { value: 'photo',       label: 'Photos',       sub: 'Member avatars side-by-side' },
-                { value: 'state',       label: 'State',        sub: 'Region badge before name' },
-                { value: 'photo_state', label: 'Photo + State', sub: 'Avatars and region badge' },
-              ] as { value: IndicatorType; label: string; sub: string }[]).map(({ value, label, sub }) => (
-                <button
-                  key={value}
-                  onClick={() => set('indicatorType', value)}
-                  style={{
-                    display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
-                    padding: '8px 10px', borderRadius: 8, border: '1px solid', textAlign: 'left',
-                    borderColor: settings.indicatorType === value ? '#3b82f6' : '#334155',
-                    background: settings.indicatorType === value ? 'rgba(59,130,246,0.12)' : 'transparent',
-                    cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
-                  }}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 600, color: settings.indicatorType === value ? '#93c5fd' : '#94a3b8' }}>{label}</span>
-                  <span style={{ fontSize: 11, color: '#475569', marginTop: 1 }}>{sub}</span>
-                </button>
-              ))}
+          <div className="demo-divider" />
+
+          {/* Tournament */}
+          <div className="demo-section">
+            <span className="demo-section-title">Tournament</span>
+
+            <div>
+              <span className="demo-field-label">Format</span>
+              <select
+                className="demo-select"
+                value={settings.format}
+                onChange={(e) => set('format', e.target.value as Settings['format'])}
+              >
+                <option value="single_elimination">Single Elimination</option>
+                <option value="double_elimination">Double Elimination</option>
+              </select>
+            </div>
+
+            <div>
+              <span className="demo-field-label">Bracket type</span>
+              <div className="demo-radio-group">
+                {([
+                  { value: 'singles', label: 'Singles',           sub: 'One player per slot' },
+                  { value: 'couples', label: 'Couples / Doubles', sub: 'Two players per slot' },
+                  { value: 'teams',   label: 'Teams',             sub: 'Team name per slot' },
+                ] as { value: ParticipantType; label: string; sub: string }[]).map(({ value, label, sub }) => (
+                  <button
+                    key={value}
+                    className={['demo-radio-btn', settings.participantType === value ? 'demo-radio-btn--active' : ''].filter(Boolean).join(' ')}
+                    onClick={() => set('participantType', value)}
+                  >
+                    <span className="demo-radio-btn-label">{label}</span>
+                    <span className="demo-radio-btn-sub">{sub}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <span className="demo-field-label">Players / Teams</span>
+              <div className="demo-range-row">
+                <input
+                  type="range"
+                  className="demo-range"
+                  min={2} max={32} step={1}
+                  value={settings.playerCount}
+                  onChange={(e) => set('playerCount', Number(e.target.value))}
+                />
+                <span className="demo-range-value">{settings.playerCount}</span>
+              </div>
             </div>
           </div>
 
-          {/* Sets to win */}
-          <div>
-            <span style={S.label}>Sets to win</span>
-            <div style={{ display: 'flex', gap: 6 }}>
-              {[1, 2, 3].map((n) => (
-                <button
-                  key={n}
-                  onClick={() => set('setsToWin', n)}
-                  style={{
-                    flex: 1, padding: '7px 0', borderRadius: 7, border: '1px solid',
-                    borderColor: settings.setsToWin === n ? '#3b82f6' : '#334155',
-                    background: settings.setsToWin === n ? 'rgba(59,130,246,0.15)' : 'transparent',
-                    color: settings.setsToWin === n ? '#93c5fd' : '#64748b',
-                    cursor: 'pointer', fontWeight: 600, fontSize: 14, fontFamily: 'inherit',
-                  }}
-                >
-                  {n}
-                </button>
-              ))}
+          <div className="demo-divider" />
+
+          {/* Display */}
+          <div className="demo-section">
+            <span className="demo-section-title">Display</span>
+
+            <div>
+              <span className="demo-field-label">Player indicator</span>
+              <div className="demo-radio-group">
+                {([
+                  { value: 'flag',        label: 'Flag',          sub: 'Country flag per slot' },
+                  { value: 'photo',       label: 'Photos',        sub: 'Member avatars side-by-side' },
+                  { value: 'state',       label: 'State',         sub: 'Region badge before name' },
+                  { value: 'photo_state', label: 'Photo + State', sub: 'Avatars and region badge' },
+                ] as { value: IndicatorType; label: string; sub: string }[]).map(({ value, label, sub }) => (
+                  <button
+                    key={value}
+                    className={['demo-radio-btn', settings.indicatorType === value ? 'demo-radio-btn--active' : ''].filter(Boolean).join(' ')}
+                    onClick={() => set('indicatorType', value)}
+                  >
+                    <span className="demo-radio-btn-label">{label}</span>
+                    <span className="demo-radio-btn-sub">{sub}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div style={{ fontSize: 11, color: '#475569', marginTop: 4 }}>
-              Best of {settings.setsToWin * 2 - 1}
+
+            <div className="demo-toggle-group">
+              <Toggle checked={settings.showSeed}   onChange={(v) => set('showSeed', v)}   label="Show seed number" />
+              <Toggle checked={settings.showStatus} onChange={(v) => set('showStatus', v)} label="Show match status" />
             </div>
           </div>
 
-          {/* Max sets per match */}
-          <div>
-            <span style={S.label}>Max sets per match</span>
-            <div style={{ display: 'flex', gap: 6 }}>
-              {[1, 3, 5, 7].map((n) => (
-                <button
-                  key={n}
-                  onClick={() => set('maxSetsPerMatch', Math.max(n, settings.setsToWin * 2 - 1))}
-                  style={{
-                    flex: 1, padding: '7px 0', borderRadius: 7, border: '1px solid',
-                    borderColor: settings.maxSetsPerMatch === n ? '#3b82f6' : '#334155',
-                    background: settings.maxSetsPerMatch === n ? 'rgba(59,130,246,0.15)' : 'transparent',
-                    color: settings.maxSetsPerMatch === n ? '#93c5fd' : '#64748b',
-                    cursor: 'pointer', fontWeight: 600, fontSize: 13, fontFamily: 'inherit',
-                  }}
-                >
-                  {n}
-                </button>
-              ))}
+          <div className="demo-divider" />
+
+          {/* Scoring */}
+          <div className="demo-section demo-section--scoring">
+            <span className="demo-section-title">Scoring</span>
+
+            <div>
+              <span className="demo-field-label">Sets to win</span>
+              <div className="demo-segmented">
+                {[1, 2, 3].map((n) => (
+                  <button
+                    key={n}
+                    className={['demo-segmented-btn demo-segmented-btn--lg', settings.setsToWin === n ? 'demo-segmented-btn--active' : ''].filter(Boolean).join(' ')}
+                    onClick={() => set('setsToWin', n)}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+              <p className="demo-hint">Best of {settings.setsToWin * 2 - 1}</p>
             </div>
-            <div style={{ fontSize: 11, color: '#475569', marginTop: 4 }}>
-              Soccer: 1 · Tennis: 5–7
+
+            <div>
+              <span className="demo-field-label">Max sets per match</span>
+              <div className="demo-segmented">
+                {[1, 3, 5, 7].map((n) => (
+                  <button
+                    key={n}
+                    className={['demo-segmented-btn demo-segmented-btn--sm', settings.maxSetsPerMatch === n ? 'demo-segmented-btn--active' : ''].filter(Boolean).join(' ')}
+                    onClick={() => set('maxSetsPerMatch', Math.max(n, settings.setsToWin * 2 - 1))}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+              <p className="demo-hint">Soccer: 1 · Tennis: 5–7</p>
+            </div>
+
+            <div className="demo-toggle-group">
+              {settings.format === 'single_elimination' && (
+                <Toggle checked={settings.thirdPlaceMatch} onChange={(v) => set('thirdPlaceMatch', v)} label="3rd place match" />
+              )}
+              {settings.format === 'double_elimination' && (
+                <Toggle checked={settings.grandFinalReset} onChange={(v) => set('grandFinalReset', v)} label="Grand final reset" />
+              )}
             </div>
           </div>
 
-          {/* Toggles */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Toggle
-              checked={settings.showSeed}
-              onChange={(v) => set('showSeed', v)}
-              label="Show seed / order number"
-            />
-            <Toggle
-              checked={settings.showStatus}
-              onChange={(v) => set('showStatus', v)}
-              label="Show match status"
-            />
-            {settings.format === 'single_elimination' && (
-              <Toggle
-                checked={settings.thirdPlaceMatch}
-                onChange={(v) => set('thirdPlaceMatch', v)}
-                label="3rd place match"
-              />
-            )}
-            {settings.format === 'double_elimination' && (
-              <Toggle
-                checked={settings.grandFinalReset}
-                onChange={(v) => set('grandFinalReset', v)}
-                label="Grand final reset"
-              />
-            )}
-          </div>
-
-          {/* Apply */}
-          <button
-            onClick={applySettings}
-            style={{
-              background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8,
-              padding: '10px 0', fontSize: 14, fontWeight: 700, cursor: 'pointer',
-              width: '100%', fontFamily: 'inherit', transition: 'background 0.15s', marginTop: 4,
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.background = '#2563eb')}
-            onMouseOut={(e) => (e.currentTarget.style.background = '#3b82f6')}
-          >
+          {/* Generate */}
+          <button className="demo-generate-btn" onClick={applySettings}>
             Generate bracket
           </button>
 
-          {/* Quick presets */}
-          <div>
-            <span style={S.label}>Quick presets</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {([
-                { label: 'Soccer (8 teams)',     s: { playerCount: 8,  format: 'single_elimination', participantType: 'teams',   setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: true,  grandFinalReset: false, showSeed: false } },
-                { label: 'Tennis singles (8)',   s: { playerCount: 8,  format: 'single_elimination', participantType: 'singles', setsToWin: 2, maxSetsPerMatch: 5, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true  } },
-                { label: 'Badminton doubles (8)',s: { playerCount: 8,  format: 'single_elimination', participantType: 'couples', setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: false, showSeed: true  } },
-                { label: 'FGC Double Elim (8)', s: { playerCount: 8,  format: 'double_elimination', participantType: 'singles', setsToWin: 2, maxSetsPerMatch: 3, thirdPlaceMatch: false, grandFinalReset: true,  showSeed: true  } },
-                { label: 'Big bracket (16)',     s: { playerCount: 16, format: 'single_elimination', participantType: 'teams',   setsToWin: 1, maxSetsPerMatch: 1, thirdPlaceMatch: false, grandFinalReset: false, showSeed: false } },
-              ] as { label: string; s: Settings }[]).map(({ label, s }) => (
-                <button
-                  key={label}
-                  onClick={() => { setSettings(s); setWinner(null); setBracketKey((k) => k + 1); }}
-                  style={{
-                    background: 'transparent', border: '1px solid #1e293b', borderRadius: 7,
-                    color: '#64748b', padding: '6px 10px', fontSize: 12, fontFamily: 'inherit',
-                    cursor: 'pointer', textAlign: 'left', transition: 'border-color 0.15s, color 0.15s',
-                  }}
-                  onMouseOver={(e) => { e.currentTarget.style.borderColor = '#334155'; e.currentTarget.style.color = '#94a3b8'; }}
-                  onMouseOut={(e) => { e.currentTarget.style.borderColor = '#1e293b'; e.currentTarget.style.color = '#64748b'; }}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+          <div className="demo-callout">
+            <strong>To enter scores:</strong>
+            Click <strong>Edit</strong> in the bracket toolbar, then tap the edit icon on any match.
           </div>
 
-          <div style={{ fontSize: 11, color: '#334155', marginTop: 'auto', paddingTop: 12, borderTop: '1px solid #1e293b' }}>
-            Switch to <strong style={{ color: '#4ade80' }}>Editing</strong> mode in the bracket toolbar, then click ✏️ on a match to enter scores.
-          </div>
         </aside>
 
-        {/* ── Bracket area ── */}
-        <main style={{ flex: 1, overflow: 'hidden', padding: 0 }}>
+        {/* ── Bracket ── */}
+        <main className="demo-main">
           <Bracket
             key={bracketKey}
             config={config}

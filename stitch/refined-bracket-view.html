@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#6dddff",
+              "on-background": "#f9f9fd",
+              "on-tertiary": "#002363",
+              "primary-dim": "#00c3eb",
+              "on-primary-container": "#004352",
+              "primary-fixed-dim": "#00c3eb",
+              "tertiary-dim": "#759aff",
+              "on-secondary-fixed": "#064200",
+              "error-dim": "#d7383b",
+              "on-secondary-container": "#e7ffd9",
+              "surface-container-high": "#1d2024",
+              "error-container": "#9f0519",
+              "on-surface-variant": "#aaabaf",
+              "tertiary": "#82a3ff",
+              "on-error-container": "#ffa8a3",
+              "surface-dim": "#0c0e11",
+              "on-primary-fixed-variant": "#004c5d",
+              "on-secondary-fixed-variant": "#0d6200",
+              "secondary-fixed-dim": "#2be800",
+              "inverse-primary": "#00687e",
+              "secondary-dim": "#2be800",
+              "tertiary-fixed": "#92aeff",
+              "surface-container-highest": "#23262a",
+              "surface-tint": "#6dddff",
+              "on-secondary": "#0b5800",
+              "on-primary": "#004c5e",
+              "secondary-container": "#106e00",
+              "surface-container-low": "#111417",
+              "surface-container-lowest": "#000000",
+              "primary-fixed": "#00d2fd",
+              "on-error": "#490006",
+              "inverse-on-surface": "#535559",
+              "on-tertiary-container": "#001747",
+              "surface-container": "#171a1d",
+              "tertiary-fixed-dim": "#7da0ff",
+              "tertiary-container": "#6f94fa",
+              "secondary-fixed": "#2ff801",
+              "on-tertiary-fixed-variant": "#003388",
+              "surface": "#0c0e11",
+              "background": "#0c0e11",
+              "secondary": "#2ff801",
+              "outline": "#747579",
+              "on-primary-fixed": "#002c37",
+              "on-tertiary-fixed": "#001442",
+              "outline-variant": "#46484b",
+              "inverse-surface": "#f9f9fd",
+              "on-surface": "#f9f9fd",
+              "surface-bright": "#292c31",
+              "primary-container": "#00d2fd",
+              "surface-variant": "#23262a",
+              "error": "#ff716c",
+              "gold": "#FFD700",
+              "gold-dim": "#B8860B"
+            },
+            fontFamily: {
+              "headline": ["Lexend"],
+              "body": ["Manrope"],
+              "label": ["Lexend"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .bracket-connector {
+            position: absolute;
+            border-color: rgba(70, 72, 75, 0.3);
+            border-style: solid;
+        }
+        .active-path {
+            border-color: #6dddff;
+            filter: drop-shadow(0 0 4px #6dddff);
+            z-index: 10;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0c0e11;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1d2024;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #23262a;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 selection:text-primary overflow-hidden h-screen w-full">
+<!-- Main Canvas -->
+<main class="flex flex-col h-screen w-full">
+<!-- Bracket Area -->
+<div class="flex-1 overflow-auto custom-scrollbar bg-surface relative flex justify-center items-start">
+<div class="p-12 flex items-start gap-24 relative min-w-max">
+<!-- Round 1: Quarter Finals -->
+<div class="flex flex-col gap-16 relative z-20">
+<div class="mb-4">
+<span class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-[0.2em]">Quarter-Finals</span>
+</div>
+<!-- Match 1 -->
+<div class="w-[320px] bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container transition-colors relative">
+<!-- Match Meta -->
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-secondary uppercase">Finished</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court A • 14:00</span>
+</div>
+<!-- Team 1 (Winner) -->
+<div class="p-4 flex items-center justify-between relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-fixed-dim"></div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="close-up portrait of a competitive gaming professional with neon blue light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCERaVwYk8Gacsr7UysTnKympIwdWaGI7NYNW5mLS0BIJM7cf2hsIIEnhfPmZTftCTvNq23S8EKjW-l383Fbuc1_DlR35lfupzok2dLwcL6DRX-ZHTejCyVeT4LZGpFwVoRMdRK1QAAVCBAQi4hqRrcSEnFUEWFWCzZnmc472EJ6-thv8aEVEXzU9esV-YDhijpDpdhwodbSBOva7v_3d9y77aFaZ-NqPv34ukvtaZh6m6DswUft8SqvoxZDErRkpG9S2EqPtUUrB9h"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="close-up portrait of a competitive gaming professional with cybernetic aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLAE5AuzXJxAWvgGiG6LLpO_GLfQEZvUpCotA7mq8oEcTu2aVGDRIvDC8DAoRifSFB2jo2Pe3jHJl8Majh7IGaUGP9Mu_HdFlJb4oahe1lz-2kG2xIJzx2So6YM52v-EFsIQ9jUdZW15Rgb6PArhtTt98eKNsZMrMf-F4XhqmHtABPQagehG-dKF-uMVJ69P0OWxbjavnEtJOd5eG3nv2HCvMYLqPTNn7LR0Hb8q7os5pb6VQQE2Ts-mRw5cFu3_njVGZd4cJqOR1W"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">VORTEX DUO</h4>
+<p class="text-[10px] font-body text-on-surface-variant">E. Chen, L. Miller</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">6</span>
+<span class="font-headline text-sm text-on-surface-variant">3</span>
+<span class="font-headline text-sm text-secondary font-bold">7</span>
+</div>
+</div>
+<div class="h-[0.3rem] bg-surface-dim"></div>
+<!-- Team 2 -->
+<div class="p-4 flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="digital avatar of a female esports athlete with vibrant hair and sleek headset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvcw5QXQPL7z4W0baupFgT5HnGYQCNKrTtZOO3UthwFsWd0SZsziNqaz9G_PUiN4HUjrihm0hL1KZFeob5fqWSRE86mxb3TmaDSFRQaSDpedGNBG4ss4JusClxJFQrWEOKoUPlHeE1tJUNU1_tQwXF0b1Fulcvi1ekzpI1AeQeFouGcklxzX9hcPuPGMxPkR9UPdiMQFDu4SDEr6_Hj90GLI-0FRAwC0a-wyuvkSgqJt9noZPmN5wematMIn0b7oWSJ4plXNWBPA3V"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="digital avatar of a female esports athlete with glowing goggles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaENxRaoJpDBEKEFhUyM58rbiaoW18_0mRwYcIjYQoGVN91bg_4eFCFz-ekw8eegQ-B6fMnnTeV_DmtJCNETyglubh9lJ1jNcY2B4c-R6Q69xfy8OvZX19mPvYqP2yK8Yx9Z1LRMpiPhslwyWTXmZVd1kbwA_A9TQmGua_vJ8rHC3R0M6IRRlW4k5MfC6CbOiViUnHZc_fVeV3FP-5rWSn18lgAvnZMqJdsSpjT7v_IyepDA-5UBRUx2lLr2FNCoERq20XHgwV1VnA"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold">TITAN SQUAD</h4>
+<p class="text-[10px] font-body text-on-surface-variant">S. Wu, N. Lopez</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm">4</span>
+<span class="font-headline text-sm text-secondary">6</span>
+<span class="font-headline text-sm">6</span>
+</div>
+</div>
+</div>
+<!-- Match 2 -->
+<div class="w-[320px] bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-secondary uppercase">Finished</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court B • 15:30</span>
+</div>
+<div class="p-4 flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="professional esports player headshot with dynamic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5pr_QRgGfajtLdW6BGj-kwe87w-mERScZQHYF-KEv9HWhS6UI2slcjOGOFP6FObS7zou-wHDvvKyi-ShDAQdjLrMG8LY8nq_d5ycQ_DL10lyrldf5j4ifHJyBP6z-vKxyztkoi9iJfnYpeoCEANcUH7VfZhORpesVor--BPQT1f5pYo72qf2DQbhB1IX5EH1aqvgYBvbGEYsnzOeBD-se30dJNRSVXIWL_CZrZ4mqHdpmS_Q7SG2IR2nTw4994jQwM_z34uGdxxf"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="professional esports player headshot with futuristic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYZvwdc8H3EnnDbO4K5NXVcLLADLXXDQX3j05ku0eQ9AGjncoFtF6VjC5HKY7E_HA2jNknWaV_WpAza29sJBPAHqELrUCrbWxF1_k6B424KWe-dOSimEdSR6NFMg8qOYF2gFArIpwPkHbGxZMSbXXzaHmdzLNBHc96ITnrmYxiLRywYm6JLypDTdmH21VObyrZ1R2bRp50YL0w_RE2iTWorqy4-5IMx1kUgliISl_D54kPHJlDBiiBzAQLvgtVZrFlCaWTfLbVyRRZ"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold">NEON BLITZ</h4>
+<p class="text-[10px] font-body text-on-surface-variant">M. Ross, J. Kim</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm">2</span>
+<span class="font-headline text-sm">1</span>
+</div>
+</div>
+<div class="h-[0.3rem] bg-surface-dim"></div>
+<div class="p-4 flex items-center justify-between relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-fixed-dim"></div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="close-up avatar with technological glasses and dark theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg6dLSx3uKVeRIEsnkTg5H0a6Xqxw_GkcDMsVQS4O8_VAHT3JBfj69eb1Pp272u2C6xifkb6-6sbrZcEtmls4LNXkrN9p9qTpqQqvp1wAt47W9WfQRyesq2q5SFAncBwUJ33sQhzHso3_RXCDfDdjJWTwdoGCbk7L_0RDLr92VuAmS5xdHSpy_oxlXOg4ND0lGs5r4gymYVT7G_El-0CrzBfdnvbeEX064n7W72aESgRJXOdkYD9p_spgzKYdWe0i_oR9LSKJgVj4N"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="close-up avatar with techwear and neon accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEryVj_L7LwJUwmDzM6vyPbdW07fdCp64DJT403nNLBkq7grMija9b8Rv0tkRulCr18LlZ7NsSaQByjXQVHlG2MHiiHbJg1MU6x3wYpTXpcULOyPjpD3TwV2Fsid7LnTlgx7WRTsn9-Srhj46ex8QGqem0hjQqE2qIn9elpigMphVypkh_Fha99GiKDXQPPdgVY54FG1vSKfsLRn6thpBreBoh0wdHbxwpT3XSyrkZnY44ZJK7RcEqWpzNCvd4XGZiRcXcVT0vnMvC"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">CYBER KINGS</h4>
+<p class="text-[10px] font-body text-on-surface-variant">Y. Sato, X. Varga</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-secondary font-bold">6</span>
+<span class="font-headline text-sm text-secondary font-bold">6</span>
+</div>
+</div>
+</div>
+<!-- Match 3 -->
+<div class="w-[320px] bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-primary animate-pulse uppercase">In Progress</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court A • Live</span>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports athlete profile with sharp shadows and blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD25OfPoWk8W6ml8rWTj-lah7-66zsSKkUJIsUZczhUKzNm4H5g6if9tlpCDIbygHmOVsLwEpParaNTCnAZKJSV82-fu9pPW77hLmpwrMNBBkpMsOHBkbL5MNSb5ZfItv5bSJNQQBAILM3Dqru8F3ggaTqmmHRzZUYd5HuFeKTh7YxsqbyBAqxWnn2b05GQMQAf-JKTSlcHnIxy-YoTy89_I_OyHp-N5pzctQnXkaa6e3MtpfKNGJZRQ3Ve7ceYhnZtYGa0NbPeCbrn"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports athlete profile with high-tech apparel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDctdfCDiVKsLWDUGB_dIuJDhF6qZ3g0gJfFQa5cV2lUjY3o0wtJCsj08ZsgGWxKtoPwWy6zYK8w3VCrqabXdTQDUw3R1gMGg3XYr8zWzMhNeTO2YDsMGL9xOhZebzV2UWMWviXxPjKxCmQgkVTgOPHVxBUeYTcTKjDDwF8JoZDx2TUTz0ebvghUJM2mf7C7DOX1A2ZV4mdI4EKzgwHUOYnR2XYMJ4FCqkNJmHWhBWIsBI1F3h2izz5MIJ3AS1SXOwBDG6HRPDMgWH2"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold">APEX DUO</h4>
+<p class="text-[10px] font-body text-on-surface-variant">F. Bauer, H. Grant</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">5</span>
+<span class="font-headline text-sm text-secondary font-bold">2</span>
+</div>
+</div>
+<div class="h-[0.3rem] bg-surface-dim"></div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="female pro gamer with neon pink highlight lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxqPhJFAHOnGkeDeUyNk6jlUN-vfQINBpA4Ll5Ra-fJMFI5yhhjLz7nIMCsJ8wC7UvzFJv63VGRVN2fZgV-88QzxPRvW3gm1EcOQkgIQnwVUC4_3YnfYssZcE30O-ljfSMSzypSNYL7mlAdc_tjLy6_rbVnqRcH5QJuskaIcgDEoplXRJBKT9ngRrMOyp3c2APt-RX5G3zYpo7Si3O_b_IYwy1X2ESRh51Efcj7GVgB33cCmT33CpWRvQ6Rn6lmYQeG-fiwvP3zsz4"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="female pro gamer with futuristic visor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhCGsLHIjxftGFkB3hC4Tty1BjV1hrySrJfx7xFz0gNBggQNU0ya3a3n_QswLTPF3lXDXWyzxio-YY8AEpCimhkYVcRG1wWn4hpFA2j1rnaSTRILHDwjaFT3BzEstyPSxwGRK3oX5Hi6B0ipf0DT2HWo-uq52WifJqCmxnITzg_3zD1wF23jDuMRmEgc9q9xMJEOvmGqvRXIpArKlEgCUXF6UaLX8I0Vk6At2YUzCWFQbasMFMKCFod-hm4hXfz-60qH3Dyk5cRDfJ"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">PULSE RAIDERS</h4>
+<p class="text-[10px] font-body text-on-surface-variant">Z. Thorne, E. Lane</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-secondary font-bold">7</span>
+<span class="font-headline text-sm text-on-surface-variant">1</span>
+</div>
+</div>
+</div>
+<!-- Match 4 -->
+<div class="w-[320px] bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container opacity-50 transition-colors">
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant uppercase">Scheduled</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court B • 19:00</span>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="male athlete with futuristic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdee-o7EdDYk2Bbu7GFn-Whaqk7i60gMbVuGljP46j1s55sHP4If3aMp4fOT-oi-ZZmx8xw2fNs_si3a60TlDQS7WK3NvLp9aCJ2k4bPlz1mIEKOKYT3RRIC3c-eBtbcq5j-xrNRPW2XtygXA8kx4I-wDwdgzkL43Iz8RqP25cpE3y_BhfRH1emcRMEdqSh2uGyDdy3eSkVaRhIbLOw8uTHi0vOr63T7_NUq0C-VKuDhraVZBPcSKuXlVDvxYrNbRjpztlykpt-D0H"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="male athlete with cyber glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkfhklInCSfGN0hkzwSS-IvShiJK2gX44fT8r2wcGA6NRhVtZ3KuAkycT0SSSowgf9WEPDPPQmh8XGd482BnN5_6I-0t0lokhxzHWmzEEUZCb_HboHW-ncC0xLKYicIw9wxlwMuAMFNteKAiZAs2172KE95j3WYTzF1S97OJVurVwpnKwJXpjODh03D9wVtnT_U6K2OvWefk_qO-NeMkiPv0CwMJF8W_pK6oPpQLv7tuKUqDBDpe-7OgR-MDqRhtk2MrI9pdQVcyMa"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold">IRON LORDS</h4>
+<p class="text-[10px] font-body text-on-surface-variant">I. Bell, O. Smith</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">-</span>
+</div>
+</div>
+<div class="h-[0.3rem] bg-surface-dim"></div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="female athlete in dark athletic gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE5e4kNItu9vsA-2j1S_j5EulDu90bEEmjb-ystxmFKcYuK9RGWcE20I074Py35B_a20IoJIK11QxC992SlTiFsbN7KlYxBAmrwwkoXUd9F9nYLtVWF5mnzm6rDu3S7hZpZfo1yJLjQ45u885k-fbrVDZvoRerGV_HOEGttj5vJtAwvDb1jkA9NY9QyabJ27Xmk-q8Xvnoh8irY2gwhsGTt4ftdJh_T0koJIPmlHP8V2B6BiPuMt-RP0ygNAmFRx3B-kZ7MS4SSEba"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="female athlete with neon green lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgxr69tmp02hOe5T10sqP0mWKx3Aru8vIojENzvqG5vuYwrtBlug0KR0U-rj_11VDq-sIWXHmfIms1402cv2QQSmunSBrrK2Hcly906UTaex8SuSjmXniQ_PDOuBPyBLKxTuLD-APKxToayQdr8B_-iad_oZ2OgypfvyuRNCQR4PM0dxjNNc655drVlyybMOg9nTCEQCOYh-hXR8z-CoqAluXyYNSiHieEcgW0rYbdBxylKXjRjo4DdPuGzlr1VIR4Wy4XU_5_FEt4"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">ZENITH</h4>
+<p class="text-[10px] font-body text-on-surface-variant">S. Petrova, M. Moon</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">-</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Connectors: R1 to R2 -->
+<div class="absolute left-[368px] top-[148px] w-12 h-[208px] border-r-2 border-y-2 border-outline-variant/20 rounded-r-lg pointer-events-none active-path"></div>
+<div class="absolute left-[368px] top-[532px] w-12 h-[208px] border-r-2 border-y-2 border-outline-variant/20 rounded-r-lg pointer-events-none"></div>
+<div class="absolute left-[416px] top-[252px] w-8 h-2 border-t-2 border-primary active-path pointer-events-none"></div>
+<div class="absolute left-[416px] top-[636px] w-8 h-2 border-t-2 border-outline-variant/20 pointer-events-none"></div>
+<!-- Round 2: Semi Finals -->
+<div class="flex flex-col gap-16 relative z-20 pt-[104px]">
+<div class="mb-4">
+<span class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-[0.2em]">Semi-Finals</span>
+</div>
+<!-- Match 5 -->
+<div class="w-[320px] bg-surface-container-low border border-secondary/20 rounded-xl overflow-hidden group hover:bg-surface-container transition-colors relative shadow-[0_0_20px_rgba(47,248,1,0.05)]">
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-secondary uppercase">Starting Soon</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court A • 18:00</span>
+</div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-dY71OGu0ehUQgyB88mXwy-EQtDoytinvMxrI-wgej6qzjh9sbBa8pu-lXwZs5bSCfMBNBlLVRYzVQiQxw0Gp87tD2AuixAiTZJHxLH_rOnjNiHjDAhrHch_9BOCn7pT7Q1E1Vc7MKcDgW_BG6JZ7Q-AdJGAf-FbJGv7LQQ4cl18aDXWcIDK-NiMwyoXAwzn3nAnxnlaW7proGHAr_ju81oc_iX_QRJ-tZOuyN7uc_-c6yVtBEqVaigTLnoPOl0FygZiUzmLESTig"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIjnxDqLFaqM2v5tqR-cy0YC85mlb9phUYtIoJ41z3fejb5lEsvbcNbdbhXGi5vRt86sc2pkIrnrTIRW_IvsTJLVYxq0iOpKVdWT3PYQ3oHXwabtA9lDOQ-UcQfbR_Pnfol0HM0ehU0QQzPfDmOuCMDQNLEad-VVzd5lfA14IVfoVMlwUw0e_RlWCUSitF_OfcT5bZT0jIRj3jZSnxt2-hes8xiLdnsXyUnrpcJ6ThxiQCkMdo7fG6DLhLzOqBT9zGwuKi-JUUO6v2"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">VORTEX DUO</h4>
+<p class="text-[10px] font-body text-on-surface-variant">E. Chen, L. Miller</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">-</span>
+</div>
+</div>
+<div class="h-[0.3rem] bg-surface-dim"></div>
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUmjFkk2H_MJLAdswneTpTwjtZpxh9LuzueqcN6M-h1lc-ye6d1XXoncokQCA1HGeUfxDtYxBbRIiWoEtwCNfp-XUd1esH4cPpECMETUGHDQxxgNYIqRRUfCR0kHwmyhjMlAziDV_loAEw3LKzHIeWHkK9LOPzZ0vUnzg-inLvS-mgijwVJq_9Qn6YObI3BND73rD9WqokZdfrwPymqCXb7I_L-bKjn9vSvIDEGwyZ-OfFHAqxEW_c1Rhixq1YCwEXCFAaqbDpnywZ"/>
+<img class="w-8 h-8 rounded-xl border-2 border-surface bg-surface-container-highest" data-alt="esports profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcNDQ8u_aHE6rbvoQx8aYXJr9xsCM8HtI19a_UgTWvW-fg1fUeDH3oZWLIUQVu6kXRwi-kqUcMogK1G63bLrkH5rohpFvceaB6ONr15u32Qm___nzhH-H9szNCx0x4jl7Ln8H2LqZMentukwddXIyN1mem_xsKWA33lgMvw-z3s6KSHtqmK6o0VOiKa2aQojN-bWi8D9Y2rIHZmixhULPR6CB22CCWY7pe956okgJg5GEfiDrWQZe4e1cHI4b0fubX-SjX7Nr6fPSP"/>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">CYBER KINGS</h4>
+<p class="text-[10px] font-body text-on-surface-variant">Y. Sato, X. Varga</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="font-headline text-sm text-on-surface-variant">-</span>
+</div>
+</div>
+</div>
+<!-- Match 6 -->
+<div class="w-[320px] bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container opacity-40 transition-colors mt-[136px]">
+<div class="px-4 py-2 bg-surface-container-high flex justify-between items-center border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant uppercase">TBD</span>
+<span class="text-[10px] font-body text-on-surface-variant uppercase">Court B • 20:30</span>
+</div>
+<div class="p-4 flex items-center justify-center h-24 italic text-on-surface-variant text-xs">
+                        Awaiting Winners...
+                    </div>
+</div>
+</div>
+<!-- Connectors: R2 to R3 -->
+<div class="absolute left-[784px] top-[340px] w-12 h-[384px] border-r-2 border-y-2 border-outline-variant/20 rounded-r-lg pointer-events-none"></div>
+<div class="absolute left-[832px] top-[532px] w-8 h-2 border-t-2 border-outline-variant/20 pointer-events-none"></div>
+<!-- Round 3: Finals -->
+<div class="flex flex-col gap-16 relative z-20 pt-[384px]">
+<div class="mb-4">
+<span class="font-headline text-sm font-black text-gold uppercase tracking-[0.4em]">Grand Final</span>
+</div>
+<!-- Match 7 (Championship) - Elegant & Refined -->
+<div class="w-[320px] bg-surface-container-low border border-gold/40 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.1)] relative">
+<div class="px-4 py-2 bg-gold/10 flex justify-between items-center border-b border-gold/20">
+<span class="text-[10px] font-headline font-black text-gold uppercase tracking-wider">The Championship</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-gold">stars</span>
+<span class="text-[9px] font-bold text-gold uppercase">Main Stage</span>
+</div>
+</div>
+<!-- Match Content -->
+<div class="flex flex-col">
+<!-- Finalist 1 -->
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-gold/50 text-base">question_mark</span>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface-variant">TBD</h4>
+<p class="text-[9px] font-body text-outline uppercase tracking-tighter">Winner Semi-Final 1</p>
+</div>
+</div>
+<span class="font-headline text-xs font-bold text-outline">-</span>
+</div>
+<!-- Divider -->
+<div class="px-4 flex items-center gap-3">
+<div class="flex-1 h-[1px] bg-gold/10"></div>
+<span class="text-[9px] font-black text-gold/30">VS</span>
+<div class="flex-1 h-[1px] bg-gold/10"></div>
+</div>
+<!-- Finalist 2 -->
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-gold/50 text-base">question_mark</span>
+</div>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface-variant">TBD</h4>
+<p class="text-[9px] font-body text-outline uppercase tracking-tighter">Winner Semi-Final 2</p>
+</div>
+</div>
+<span class="font-headline text-xs font-bold text-outline">-</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- FAB for Tournament Actions -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary rounded-2xl shadow-2xl flex items-center justify-center text-on-primary-container active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</main>
+</body></html>

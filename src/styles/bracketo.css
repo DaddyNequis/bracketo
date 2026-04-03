@@ -1,57 +1,71 @@
 /* ─── CSS Custom Properties ─────────────────────────────────────────────── */
 :root {
+  /* Typography
+     Consumers override these to use their own fonts.
+     Load the actual typefaces before importing bracketo.css. */
+  --bracketo-font-body:    'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  --bracketo-font-display: 'Barlow Condensed', 'Impact', 'Arial Narrow', sans-serif;
+
   /* Surfaces */
-  --bracketo-bg:            #0f172a;
-  --bracketo-card-bg:       #1e293b;
-  --bracketo-card-bg-hover: #243347;
-  --bracketo-card-border:   #334155;
+  --bracketo-bg:            #080808;
+  --bracketo-card-bg:       #111111;
+  --bracketo-card-bg-hover: #191919;
+  --bracketo-card-border:   #222222;
   --bracketo-card-radius:   10px;
 
   /* Text */
-  --bracketo-text:          #e2e8f0;
-  --bracketo-text-muted:    #64748b;
-  --bracketo-text-subtle:   #94a3b8;
+  --bracketo-text:          #e8e8e8;
+  --bracketo-text-muted:    #999999; /* raised from #64748b — now passes WCAG AA (≥4.5:1) */
+  --bracketo-text-subtle:   #c4c4c4; /* raised to maintain hierarchy above muted */
 
-  /* Winner */
-  --bracketo-winner-bg:     #172554;
-  --bracketo-winner-border: #1e40af;
-  --bracketo-winner-text:   #93c5fd;
-  --bracketo-winner-accent: #3b82f6;
+  /* Winner — green (brand accent) instead of blue */
+  --bracketo-winner-bg:     #081408;
+  --bracketo-winner-border: #166534;
+  --bracketo-winner-text:   #86efac;
+  --bracketo-winner-accent: #22c55e;
 
   /* Highlight path */
   --bracketo-highlight:      #f59e0b;
   --bracketo-highlight-glow: rgba(245, 158, 11, 0.2);
 
   /* Edges & handles */
-  --bracketo-edge:    #334155;
-  --bracketo-handle:  #475569;
+  --bracketo-edge:    #222222;
+  --bracketo-handle:  #333333;
 
   /* Scores */
-  --bracketo-score-bg:         #0f172a;
-  --bracketo-score-border:     #334155;
-  --bracketo-score-winner-bg:  #1e3a5f;
-  --bracketo-score-winner-text: #60a5fa;
+  --bracketo-score-bg:          #080808;
+  --bracketo-score-border:      #222222;
+  --bracketo-score-winner-bg:   #081408;
+  --bracketo-score-winner-text: #4ade80;
 
   /* Toolbar / buttons */
-  --bracketo-export-bg:    #3b82f6;
-  --bracketo-export-hover: #2563eb;
-  --bracketo-mode-view-bg: #1e293b;
-  --bracketo-mode-edit-bg: #1a2e1a;
-  --bracketo-mode-edit-text: #4ade80;
+  --bracketo-export-bg:        #16a34a; /* athletic green — replaces Tailwind blue-500 */
+  --bracketo-export-hover:     #15803d; /* green-700 hover */
+  --bracketo-mode-view-bg:     #111111;
+  --bracketo-mode-edit-bg:     #0d1f0d;
+  --bracketo-mode-edit-text:   #4ade80;
+  --bracketo-mode-edit-border: #166534;
 
   /* Label nodes */
-  --bracketo-label-text: #475569;
+  --bracketo-label-text: #6a8a72; /* green-tinted neutral — raised from #475569, passes WCAG AA */
+
+  /* Danger / destructive actions */
+  --bracketo-danger:        #f87171;
+  --bracketo-danger-bg:     rgba(239, 68, 68, 0.10);
+  --bracketo-danger-bg-hover: rgba(239, 68, 68, 0.20);
+  --bracketo-danger-border: rgba(239, 68, 68, 0.25);
+  --bracketo-danger-border-strong: rgba(239, 68, 68, 0.50);
 
   /* Modal */
-  --bracketo-modal-bg:      #1e293b;
-  --bracketo-modal-border:  #334155;
+  --bracketo-modal-bg:      #111111;
+  --bracketo-modal-border:  #222222;
   --bracketo-modal-radius:  14px;
-  --bracketo-modal-overlay: rgba(0, 0, 0, 0.7);
+  --bracketo-modal-overlay: rgba(0, 0, 0, 0.85);
 }
 
 /* ─── Root Container ─────────────────────────────────────────────────────── */
 .bracketo-root {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--bracketo-font-body);
   font-size: 13px;
   color: var(--bracketo-text);
   background: var(--bracketo-bg);
@@ -89,7 +103,7 @@
 .bracketo-mode-btn--edit {
   background: var(--bracketo-mode-edit-bg);
   color: var(--bracketo-mode-edit-text);
-  border-color: #166534;
+  border-color: var(--bracketo-mode-edit-border);
 }
 
 .bracketo-export-btn {
@@ -121,21 +135,24 @@
 .bn {
   background: var(--bracketo-card-bg);
   border: 1px solid var(--bracketo-card-border);
+  border-left: 2px solid rgba(34,197,94,0.18);
   border-radius: var(--bracketo-card-radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: border-color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .bn--highlighted {
   border-color: var(--bracketo-highlight);
-  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 2px 8px rgba(0,0,0,0.4);
+  border-left-color: var(--bracketo-highlight);
+  box-shadow: 0 0 0 2px var(--bracketo-highlight-glow), 0 2px 14px rgba(0,0,0,0.65);
 }
 
 .bn--completed {
-  border-color: #334155;
+  border-color: #1c3323;
+  border-left-color: rgba(34,197,94,0.28);
 }
 
 .bn--bye {
@@ -221,12 +238,12 @@
   box-shadow: 0 0 4px rgba(74,222,128,0.6);
 }
 
-/* Finished → blue */
+/* Finished → emerald (softer than live green) */
 .bn-header-status--done {
-  color: #60a5fa;
+  color: #6ee7b7;
 }
 .bn-header-status--done .bn-status-dot {
-  background: #60a5fa;
+  background: #6ee7b7;
 }
 
 /* BYE */
@@ -243,6 +260,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* needed for tap-area pseudo-element */
   margin-left: auto;
   width: 20px;
   height: 20px;
@@ -254,6 +272,13 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
   padding: 0;
   flex-shrink: 0;
+}
+
+/* Expand tap area to WCAG 2.5.5 minimum (44×44px) without affecting visual layout */
+.bn-edit-btn::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
 }
 
 .bn-edit-btn:hover {
@@ -361,7 +386,7 @@
 
 .bn-score--winner {
   background: var(--bracketo-score-winner-bg);
-  border-color: rgba(59, 130, 246, 0.3);
+  border-color: rgba(34, 197, 94, 0.3);
   color: var(--bracketo-score-winner-text);
 }
 
@@ -434,7 +459,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #334155;
+  background: var(--bracketo-card-border);
   color: var(--bracketo-text-subtle);
   font-size: 9px;
   font-weight: 700;
@@ -471,10 +496,11 @@
 
 /* ─── Label Node ─────────────────────────────────────────────────────────── */
 .bracketo-label-node {
-  font-size: 10px;
+  font-family: var(--bracketo-font-display);
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--bracketo-label-text);
   text-align: center;
   padding: 4px 8px;
@@ -484,6 +510,25 @@
 /* ─── Bye Node ───────────────────────────────────────────────────────────── */
 .bracketo-bye-node {
   background: transparent;
+}
+
+/* ─── Edit Mode Hint ─────────────────────────────────────────────────────── */
+.bracketo-edit-hint {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--bracketo-mode-edit-text);
+  background: var(--bracketo-mode-edit-bg);
+  border: 1px solid #166534;
+  border-radius: 20px;
+  padding: 5px 14px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.85;
 }
 
 /* ─── Score Modal ────────────────────────────────────────────────────────── */
@@ -501,10 +546,11 @@
 .bracketo-modal {
   background: var(--bracketo-modal-bg);
   border: 1px solid var(--bracketo-modal-border);
+  border-top: 1px solid rgba(34,197,94,0.2);
   border-radius: var(--bracketo-modal-radius);
   width: 440px;
   max-width: calc(100vw - 32px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), inset 0 1px 0 rgba(34,197,94,0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -520,23 +566,28 @@
 }
 
 .bracketo-modal-section {
-  font-size: 10px;
+  font-family: var(--bracketo-font-display);
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   color: var(--bracketo-text-muted);
   display: block;
   margin-bottom: 3px;
 }
 
 .bracketo-modal-title {
-  font-size: 16px;
+  font-family: var(--bracketo-font-display);
+  font-size: 22px;
   font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--bracketo-text);
   margin: 0;
+  line-height: 1.1;
 }
 
 .bracketo-modal-close {
+  position: relative; /* needed for tap-area pseudo-element */
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 7px;
@@ -550,6 +601,13 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   flex-shrink: 0;
+}
+
+/* Expand tap area to WCAG 2.5.5 minimum (44×44px) */
+.bracketo-modal-close::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
 }
 
 .bracketo-modal-close:hover {
@@ -590,12 +648,13 @@
 }
 
 .bracketo-modal-p-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--bracketo-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .bracketo-modal-vs {
@@ -675,7 +734,7 @@
 }
 
 .bracketo-tpl-input {
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 7px;
   color: var(--bracketo-text);
@@ -693,7 +752,7 @@
 }
 
 .bracketo-tpl-textarea {
-  background: #0a0f1e;
+  background: var(--bracketo-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 7px;
   color: #64748b;
@@ -715,10 +774,10 @@
 }
 
 .bracketo-tpl-error {
-  background: rgba(239,68,68,0.1);
-  border: 1px solid rgba(239,68,68,0.25);
+  background: var(--bracketo-danger-bg);
+  border: 1px solid var(--bracketo-danger-border);
   border-radius: 6px;
-  color: #f87171;
+  color: var(--bracketo-danger);
   font-size: 12px;
   padding: 8px 12px;
   margin-top: 4px;
@@ -756,7 +815,7 @@
 }
 
 .bracketo-modal-schedule-input {
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 7px;
   color: var(--bracketo-text);
@@ -812,7 +871,7 @@
 .bracketo-modal-score-input {
   width: 64px;
   height: 36px;
-  background: #0f172a;
+  background: var(--bracketo-score-bg);
   border: 1px solid var(--bracketo-modal-border);
   border-radius: 8px;
   color: var(--bracketo-text);
@@ -837,8 +896,8 @@
 }
 
 .bracketo-modal-score-input--winner {
-  border-color: rgba(59,130,246,0.5);
-  color: #60a5fa;
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #4ade80;
 }
 
 .bracketo-modal-score-input:disabled {
@@ -853,10 +912,10 @@
 }
 
 .bracketo-modal-remove-set {
-  background: rgba(239,68,68,0.1);
-  border: 1px solid rgba(239,68,68,0.2);
+  background: var(--bracketo-danger-bg);
+  border: 1px solid var(--bracketo-danger-border);
   border-radius: 5px;
-  color: #f87171;
+  color: var(--bracketo-danger);
   width: 24px;
   height: 24px;
   display: flex;
@@ -869,7 +928,7 @@
 }
 
 .bracketo-modal-remove-set:hover {
-  background: rgba(239,68,68,0.2);
+  background: var(--bracketo-danger-bg-hover);
 }
 
 .bracketo-modal-add-set {
@@ -916,6 +975,19 @@
   gap: 8px;
 }
 
+.bracketo-modal-actions--confirm {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.bracketo-modal-confirm-text {
+  font-size: 13px;
+  color: var(--bracketo-danger);
+  margin: 0;
+  align-self: flex-start;
+}
+
 .bracketo-modal-btn {
   display: inline-flex;
   align-items: center;
@@ -932,13 +1004,13 @@
 
 .bracketo-modal-btn--reset {
   background: transparent;
-  border-color: rgba(239,68,68,0.3);
-  color: #f87171;
+  border-color: var(--bracketo-danger-border);
+  color: var(--bracketo-danger);
 }
 
 .bracketo-modal-btn--reset:hover {
-  background: rgba(239,68,68,0.1);
-  border-color: rgba(239,68,68,0.5);
+  background: var(--bracketo-danger-bg);
+  border-color: var(--bracketo-danger-border-strong);
 }
 
 .bracketo-modal-btn--cancel {
@@ -959,4 +1031,52 @@
 
 .bracketo-modal-btn--save:hover {
   background: var(--bracketo-export-hover);
+}
+
+/* ─── Focus Rings (WCAG 2.4.7 / 2.4.11) ────────────────────────────────── */
+/* All interactive elements get a visible focus ring via :focus-visible,
+   so keyboard and switch-device users always know where focus is.
+   Uses --bracketo-highlight (amber) — the existing "active" colour in the system. */
+
+.bracketo-mode-btn:focus-visible,
+.bracketo-export-btn:focus-visible,
+.bn-edit-btn:focus-visible,
+.bracketo-modal-close:focus-visible,
+.bracketo-modal-btn:focus-visible,
+.bracketo-modal-add-set:focus-visible,
+.bracketo-modal-remove-set:focus-visible,
+.bracketo-tpl-tab:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+/* Inputs already show a border-colour change on focus; add an outline ring too
+   so the change is always perceivable regardless of system colour scheme. */
+.bracketo-tpl-input:focus-visible,
+.bracketo-tpl-textarea:focus-visible,
+.bracketo-modal-score-input:focus-visible,
+.bracketo-modal-schedule-input:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 0;
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .bn,
+  .bn-edit-btn,
+  .bn-slot,
+  .bracketo-mode-btn,
+  .bracketo-export-btn,
+  .bracketo-modal-close,
+  .bracketo-modal-btn,
+  .bracketo-modal-add-set,
+  .bracketo-modal-remove-set,
+  .bracketo-tpl-tab,
+  .bracketo-tpl-input,
+  .bracketo-tpl-textarea,
+  .bracketo-modal-schedule-input,
+  .bracketo-edit-hint {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

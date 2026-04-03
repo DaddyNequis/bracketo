@@ -1,0 +1,416 @@
+/*
+ * demo.css — Bracketo demo shell styles
+ *
+ * All colours reference CSS custom properties defined in bracketo.css.
+ * Changing a bracketo token updates the demo automatically.
+ */
+
+/* ─── Shell ──────────────────────────────────────────────────────────────── */
+.demo-root {
+  min-height: 100vh;
+  background: #040404; /* slightly deeper than --bracketo-bg for depth */
+  color: var(--bracketo-text);
+  font-family: var(--bracketo-font-body);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.demo-header {
+  border-bottom: 1px solid rgba(34,197,94,0.1);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(180deg, rgba(34,197,94,0.04) 0%, transparent 100%);
+  box-shadow: 0 1px 0 rgba(34,197,94,0.08);
+}
+
+.demo-logo {
+  font-family: var(--bracketo-font-display);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bracketo-mode-edit-text);
+  line-height: 1;
+}
+
+.demo-subtitle {
+  font-size: 13px;
+  color: var(--bracketo-text-muted);
+  font-weight: 400;
+}
+
+.demo-winner-banner {
+  margin-left: auto;
+  background: var(--bracketo-highlight-glow);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bracketo-highlight);
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+.demo-layout {
+  display: flex;
+  height: calc(100vh - 57px);
+}
+
+.demo-main {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────── */
+.demo-sidebar {
+  width: 268px;
+  flex-shrink: 0;
+  background: var(--bracketo-bg);
+  border-right: 1px solid var(--bracketo-card-bg);
+  padding: 20px 16px 28px;  /* more top/bottom air than sides */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px; /* generous — sections are distinct regions */
+}
+
+.demo-section--scoring {
+  margin-bottom: 24px; /* most spacing before the CTA */
+}
+
+.demo-section--quick-start {
+  margin-bottom: 14px;
+}
+
+.demo-divider {
+  height: 1px;
+  background: var(--bracketo-card-bg);
+  margin: 0 0 20px; /* consistent: sections own their bottom margin; dividers add top gap */
+}
+
+/* ─── Labels ─────────────────────────────────────────────────────────────── */
+.demo-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bracketo-text-subtle); /* brighter than field labels — section headers outrank them */
+  display: block;
+  margin-bottom: 4px; /* adds to flex gap → more air between title and first field */
+}
+
+.demo-section-title--accent {
+  color: var(--bracketo-mode-edit-text);
+  margin-bottom: 10px;
+}
+
+.demo-field-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bracketo-text-muted); /* dimmer than section titles */
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* ─── Select ─────────────────────────────────────────────────────────────── */
+.demo-select {
+  width: 100%;
+  background: var(--bracketo-bg);
+  border: 1px solid var(--bracketo-card-border);
+  border-radius: 7px;
+  color: var(--bracketo-text);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+.demo-select:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+/* ─── Radio buttons ──────────────────────────────────────────────────────── */
+.demo-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.demo-radio-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 7px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--bracketo-card-border);
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+}
+
+.demo-radio-btn:hover:not(.demo-radio-btn--active) {
+  border-color: var(--bracketo-card-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-radio-btn--active {
+  border-color: var(--bracketo-export-bg);
+  background: rgba(22, 163, 74, 0.12);
+  box-shadow: inset 0 0 24px rgba(34,197,94,0.05), 0 0 0 0 transparent;
+}
+
+.demo-radio-btn:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+.demo-radio-btn-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bracketo-text-muted);
+}
+
+.demo-radio-btn--active .demo-radio-btn-label {
+  color: var(--bracketo-mode-edit-text);
+}
+
+.demo-radio-btn-sub {
+  font-size: 11px;
+  color: var(--bracketo-text-muted);
+  margin-top: 1px;
+}
+
+/* ─── Range slider ───────────────────────────────────────────────────────── */
+.demo-range-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-range {
+  flex: 1;
+  accent-color: var(--bracketo-export-bg);
+}
+
+.demo-range-value {
+  min-width: 24px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--bracketo-text);
+}
+
+/* ─── Segmented buttons (sets) ───────────────────────────────────────────── */
+.demo-segmented {
+  display: flex;
+  gap: 6px;
+}
+
+.demo-segmented-btn {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 7px;
+  border: 1px solid var(--bracketo-card-border);
+  background: transparent;
+  color: var(--bracketo-text-muted);
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.demo-segmented-btn--active {
+  border-color: var(--bracketo-export-bg);
+  background: rgba(22, 163, 74, 0.15);
+  color: var(--bracketo-mode-edit-text);
+  box-shadow: 0 0 10px rgba(22,163,74,0.12);
+}
+
+.demo-segmented-btn:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+.demo-segmented-btn--sm {
+  font-size: 13px;
+}
+
+.demo-segmented-btn--lg {
+  font-size: 14px;
+}
+
+.demo-hint {
+  font-size: 11px;
+  color: var(--bracketo-text-muted);
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* ─── Toggle ─────────────────────────────────────────────────────────────── */
+.demo-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.demo-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.demo-toggle-track {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: var(--bracketo-card-border);
+  transition: background 0.2s;
+}
+
+.demo-toggle-track--on {
+  background: var(--bracketo-export-bg);
+}
+
+.demo-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.2s;
+}
+
+.demo-toggle-thumb--on {
+  left: 19px;
+}
+
+.demo-toggle-text {
+  font-size: 13px;
+  color: var(--bracketo-text-muted);
+}
+
+.demo-toggle-text--on {
+  color: var(--bracketo-text);
+}
+
+/* ─── Generate button ────────────────────────────────────────────────────── */
+.demo-generate-btn {
+  margin-top: 4px; /* extra air: generate is the CTA — separate it from scoring */
+  background: var(--bracketo-export-bg);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.demo-generate-btn:hover {
+  background: var(--bracketo-export-hover);
+}
+
+.demo-generate-btn:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+/* ─── Edit callout ───────────────────────────────────────────────────────── */
+.demo-callout {
+  margin-top: 12px;
+  background: rgba(74, 222, 128, 0.07);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 12px;
+  color: var(--bracketo-mode-edit-text);
+  line-height: 1.5;
+}
+
+.demo-callout strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ─── Preset buttons ─────────────────────────────────────────────────────── */
+.demo-preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.demo-preset-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid var(--bracketo-card-bg);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.demo-preset-btn:hover {
+  border-color: var(--bracketo-card-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-preset-btn:focus-visible {
+  outline: 2px solid var(--bracketo-highlight);
+  outline-offset: 2px;
+}
+
+.demo-preset-emoji {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--bracketo-mode-edit-text);
+}
+
+.demo-preset-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.demo-preset-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bracketo-text-subtle); /* brighter — primary info */
+}
+
+.demo-preset-sub {
+  font-size: 11px;
+  color: var(--bracketo-text-muted); /* dimmer — secondary info */
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { MdEmojiEvents } from 'react-icons/md';
 import { useBracketStore } from '../Bracket/BracketContext';
 import { tsToDatetimeLocal, datetimeLocalToTs } from '../../utils/matchSchedule';
 
@@ -22,6 +23,8 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
   // Schedule draft
   const [draftLocation, setDraftLocation] = useState('');
   const [draftDatetime, setDraftDatetime] = useState('');
+  // Reset confirmation guard
+  const [confirmReset, setConfirmReset] = useState(false);
 
   useEffect(() => {
     if (!match) return;
@@ -113,6 +116,14 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
     onClose();
   }
 
+  function handleResetRequest() {
+    setConfirmReset(true);
+  }
+
+  function handleResetCancel() {
+    setConfirmReset(false);
+  }
+
   const sectionLabel =
     match.bracketSection === 'grand_final'
       ? 'Grand Final'
@@ -127,7 +138,7 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
         <div className="bracketo-modal-header">
           <div>
             <span className="bracketo-modal-section">{sectionLabel}</span>
-            <h2 className="bracketo-modal-title">Edit Scores</h2>
+            <h2 className="bracketo-modal-title">Match Scores</h2>
           </div>
           <button className="bracketo-modal-close" onClick={onClose} aria-label="Close">
             ✕
@@ -224,7 +235,8 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
                   <button
                     className="bracketo-modal-remove-set"
                     onClick={() => handleRemoveSet(setIdx)}
-                    title="Remove set"
+                    title="Remove this set"
+                    aria-label="Remove this set"
                   >
                     ×
                   </button>
@@ -244,24 +256,40 @@ export function ScoreModal({ matchId, onClose }: ScoreModalProps) {
         {/* Winner banner */}
         {isCompleted && match.winnerId && (
           <div className="bracketo-modal-winner-banner">
-            🏆 Winner: {config.participants.find((p) => p.id === match.winnerId)?.name}
+            <MdEmojiEvents style={{ verticalAlign: 'middle', marginRight: 5 }} />Winner: {config.participants.find((p) => p.id === match.winnerId)?.name}
           </div>
         )}
 
         {/* Actions */}
-        <div className="bracketo-modal-actions">
-          <button className="bracketo-modal-btn bracketo-modal-btn--reset" onClick={handleReset}>
-            Reset match
-          </button>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button className="bracketo-modal-btn bracketo-modal-btn--cancel" onClick={onClose}>
-              Cancel
-            </button>
-            <button className="bracketo-modal-btn bracketo-modal-btn--save" onClick={handleSave}>
-              {isCompleted ? 'Save' : 'Save'}
-            </button>
+        {confirmReset ? (
+          <div className="bracketo-modal-actions bracketo-modal-actions--confirm">
+            <p className="bracketo-modal-confirm-text">
+              Clear all scores? This can't be undone.
+            </p>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="bracketo-modal-btn bracketo-modal-btn--cancel" onClick={handleResetCancel}>
+                Keep scores
+              </button>
+              <button className="bracketo-modal-btn bracketo-modal-btn--reset" onClick={handleReset}>
+                Yes, reset
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="bracketo-modal-actions">
+            <button className="bracketo-modal-btn bracketo-modal-btn--reset" onClick={handleResetRequest}>
+              Reset match
+            </button>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="bracketo-modal-btn bracketo-modal-btn--cancel" onClick={onClose}>
+                Cancel
+              </button>
+              <button className="bracketo-modal-btn bracketo-modal-btn--save" onClick={handleSave}>
+                Save scores
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>,
     document.body,

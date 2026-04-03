@@ -27,7 +27,7 @@ const nodeTypes: NodeTypes = {
 
 function LockIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </svg>
@@ -36,7 +36,7 @@ function LockIcon() {
 
 function UnlockIcon() {
   return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 9.9-1" />
     </svg>
@@ -45,7 +45,7 @@ function UnlockIcon() {
 
 function TemplateIcon() {
   return (
-    <svg style={{ pointerEvents: 'none' }} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" style={{ pointerEvents: 'none' }} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <polyline points="14 2 14 8 20 8" />
       <line x1="16" y1="13" x2="8" y2="13" />
@@ -125,9 +125,9 @@ function BracketInner({
         <button
           className={['bracketo-mode-btn', readOnly ? '' : 'bracketo-mode-btn--edit'].filter(Boolean).join(' ')}
           onClick={() => setReadOnly((v) => !v)}
-          title={readOnly ? 'Switch to edit mode' : 'Switch to view mode'}
+          title={readOnly ? 'Switch to edit mode to enter scores' : 'Switch to view mode'}
         >
-          {readOnly ? <><LockIcon /> View</> : <><UnlockIcon /> Editing</>}
+          {readOnly ? <><LockIcon /> View</> : <><UnlockIcon /> Edit</>}
         </button>
 
         {showTemplateButton && (
@@ -144,6 +144,12 @@ function BracketInner({
           onClose={() => setTemplateOpen(false)}
           onLoad={onTemplateLoad}
         />
+      )}
+
+      {!readOnly && (
+        <div className="bracketo-edit-hint" aria-live="polite">
+          Edit mode — tap the edit icon on any match to enter scores
+        </div>
       )}
 
       <ReactFlow
